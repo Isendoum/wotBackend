@@ -153,7 +153,7 @@ public abstract class CharacterModel {
             if(this.getInventory().get(i).getId().equals(id)){
 
                 if(this.getInventory().get(i).getItemType().equals("Consumable")){
-                    if(this.getInventory().get(i).getItemAbility().getClass().getName().equals(HealHp.class.getName())){
+                    if(this.getInventory().get(i).getItemName().equals("Potion")){
 
                         int hpToHeal=Math.round(this.getMaxHp()*(this.getInventory().get(i).getItemAbility().getAbilityModifier()/100));
 
