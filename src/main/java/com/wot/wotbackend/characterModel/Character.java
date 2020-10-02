@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 @JsonDeserialize
 public class Character extends CharacterModel {
 
-    public Character(String characterName, CharacterRace characterRace, CharacterMainClass characterMainClass){
+    public Character(String characterName, CharacterRace characterRace){
         this.setName(characterName);
         this.setCharacterRace(characterRace);
-        this.setCharacterMainClass(characterMainClass);
+
         this.setLevel(1);
         this.statInitializer();
 

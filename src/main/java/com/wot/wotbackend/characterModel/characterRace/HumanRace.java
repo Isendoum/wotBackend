@@ -6,7 +6,7 @@ public class HumanRace extends CharacterRace {
 
     private HumanRace(){
         this.setRaceName("Human");
-        this.setStatModifier(1);
+        this.setStatModifier(5);
 
     }
 

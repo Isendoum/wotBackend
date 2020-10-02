@@ -5,6 +5,10 @@ package com.wot.wotbackend.config;
 import com.wot.wotbackend.characterModel.Character;
 import com.wot.wotbackend.characterModel.characterClass.WarriorClass;
 import com.wot.wotbackend.characterModel.characterRace.HumanRace;
+import com.wot.wotbackend.characterModel.characterSkill.ArcaneBolt;
+import com.wot.wotbackend.characterModel.characterSkill.MagicAttack;
+import com.wot.wotbackend.characterModel.characterSkill.MeleeAttack;
+import com.wot.wotbackend.characterModel.characterSkill.Whirlwind;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.creatureModel.creatureClan.Lemesur;
 import com.wot.wotbackend.creatureModel.types.Undead;
@@ -72,12 +76,16 @@ public class MongoDBConfig {
 
         portal.setCreatureList(creatureList);
         return strings->{
-            Player player = new Player("CptIsendoum",new Character("Isendoum", HumanRace.getInstance(), WarriorClass.getInstance()));
+            Player player = new Player("CptIsendoum",new Character("Isendoum", HumanRace.getInstance()));
             player.getPlayerCharacterList().get(0).addItemToInventory(new Potion());
             player.setLatitude(latitude);
             player.setLongitude(longitude);
+            player.getPlayerCharacterList().get(0).getCharacterSkills().add(MeleeAttack.getInstance());
+            player.getPlayerCharacterList().get(0).getCharacterSkills().add(MagicAttack.getInstance());
+            player.getPlayerCharacterList().get(0).getCharacterSkills().add(Whirlwind.getInstance());
+            player.getPlayerCharacterList().get(0).getCharacterSkills().add(ArcaneBolt.getInstance());
 
-            //playerRepository.save(player);
+            playerRepository.save(player);
             Item item = new Potion();
             System.out.println(item.getItemName());
             item.increaseQuantity();
@@ -87,7 +95,7 @@ public class MongoDBConfig {
             weapon.setItemType("Weapon");
             int rand= (int)(Math.random()*10)+1;
             weapon.setAttackModifier(rand*weapon.getLevelRequired());
-            playerRepository.findById("5f73b1412d346c7c49bc626e").ifPresent(x->
+            /*playerRepository.findById("5f73b1412d346c7c49bc626e").ifPresent(x->
                     {
 
 
@@ -99,7 +107,7 @@ public class MongoDBConfig {
 
                     playerRepository.save(x);
                     }
-            );
+            );*/
             //worldStructureRepository.save(new WorldStructure(portal));
 
         };

@@ -13,9 +13,11 @@ public class Whirlwind extends CharacterSkill {
 
     private Whirlwind(){
         this.setCharacterSkillName("Whirlwind");
-        this.setCharacterSkillModifier(1);
-        this.setSkillLevel(1);
-        this.setCharacterSkillType("Attack");
+        this.setCharacterSkillModifier(1.5f);
+        this.setCharacterSkillType("Melee Attack");
+        this.setSkillMaxLevel(5);
+        this.setInnerPowerConsume(50);
+        this.setSkillRank("C");
 
     }
 

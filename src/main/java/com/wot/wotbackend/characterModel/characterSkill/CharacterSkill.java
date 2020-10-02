@@ -12,38 +12,15 @@ public class CharacterSkill {
     private String characterSkillName;
     private String characterSkillType;
     private float characterSkillModifier;
-    private int skillLevel;
+    private int skillLevel =1;
+    private  int skillMaxLevel;
+    private int innerPowerConsume;
+    private String skillRank;
 
-    public String getCharacterSkillName() {
-        return characterSkillName;
-    }
 
-    public void setCharacterSkillName(String characterSkillName) {
-        this.characterSkillName = characterSkillName;
-    }
-
-    public float getCharacterSkillModifier() {
-        return characterSkillModifier;
-    }
 
     public void setCharacterSkillModifier(float characterSkillModifier) {
         this.characterSkillModifier = characterSkillModifier;
-    }
-
-    public int getSkillLevel() {
-        return skillLevel;
-    }
-
-    public void setSkillLevel(int skillLevel) {
-        this.skillLevel = skillLevel;
-    }
-
-    public String getCharacterSkillType() {
-        return characterSkillType;
-    }
-
-    public void setCharacterSkillType(String characterSkillType) {
-        this.characterSkillType = characterSkillType;
     }
 
     @Override

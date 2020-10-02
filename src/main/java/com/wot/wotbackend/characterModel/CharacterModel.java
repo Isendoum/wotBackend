@@ -31,14 +31,19 @@ public abstract class CharacterModel {
     private float speed;
     private int level;
     private long exp;
-    private int resource;
+    private int maxInnerPower;
+    private int currentInnerPower;
     private int talentPoints;
     private int levelPoints;
     private Gear gear;
-    private String resourceName;
+    private String resourceName="Inner Power";
     private List<CharacterSkill> characterSkills;
+    private CharacterSkill skill1;
+    private CharacterSkill skill2;
+    private CharacterSkill skill3;
+    private CharacterSkill skill4;
     private CharacterRace characterRace;
-    private CharacterMainClass characterMainClass;
+    private int gold;
     private List<Item> inventory = new ArrayList<>();
 
 
@@ -54,10 +59,10 @@ public abstract class CharacterModel {
 
     public void increaseCurrentHp(float hp){this.currentHp=this.currentHp+hp;}
 
-    //initialize base Hp from character race and character class
+    //initialize base Hp from character race
     public void initMaxHpAndCurrentHp(){
-        if(this.characterMainClass !=null && this.characterRace!=null){
-            this.maxHp = (this.characterRace.getStatModifier()+ this.characterMainClass.getBaseHp())*this.level;
+        if(this.characterRace!=null){
+            this.maxHp = this.characterRace.getStatModifier()*this.level;
             this.maxHp = this.maxHp+this.getGear().getHelmet().getHpModifier()
                     +this.getGear().getShoulders().getHpModifier()
                     +this.getGear().getChest().getHpModifier()
@@ -69,8 +74,8 @@ public abstract class CharacterModel {
     }
 
     public void initMaxHp(){
-        if(this.characterMainClass !=null && this.characterRace!=null){
-            this.maxHp = (this.characterRace.getStatModifier()+ this.characterMainClass.getBaseHp())*this.level;
+        if(this.characterRace!=null){
+            this.maxHp = (this.characterRace.getStatModifier())*this.level;
             this.maxHp = this.maxHp+this.getGear().getHelmet().getHpModifier()
                     +this.getGear().getShoulders().getHpModifier()
                     +this.getGear().getChest().getHpModifier()
@@ -84,8 +89,36 @@ public abstract class CharacterModel {
 
     }
 
-    //todo fix consumables insertion
-    //Adds an item to inventory
+    //initialize base Inner Power from character race
+    public void initMaxInnerPowerAndCurrentInnerPower(){
+        if(this.characterRace!=null){
+            this.maxInnerPower = Math.round(this.characterRace.getStatModifier()*this.level);
+            this.maxInnerPower = this.maxInnerPower+this.getGear().getHelmet().getMagicAttackModifier()
+                    +this.getGear().getShoulders().getMagicAttackModifier()
+                    +this.getGear().getChest().getMagicAttackModifier()
+                    +this.getGear().getGloves().getMagicAttackModifier()
+                    +this.getGear().getBoots().getMagicAttackModifier()
+                    +this.getGear().getPants().getMagicAttackModifier();
+        }
+        this.currentInnerPower=this.maxInnerPower;
+    }
+
+    public void initMaxInnerPower(){
+        if(this.characterRace!=null){
+            this.maxInnerPower = Math.round(this.characterRace.getStatModifier()*this.level);
+            this.maxInnerPower = this.maxInnerPower+this.getGear().getHelmet().getMagicAttackModifier()
+                    +this.getGear().getShoulders().getMagicAttackModifier()
+                    +this.getGear().getChest().getMagicAttackModifier()
+                    +this.getGear().getGloves().getMagicAttackModifier()
+                    +this.getGear().getBoots().getMagicAttackModifier()
+                    +this.getGear().getPants().getMagicAttackModifier();
+        }
+        if(this.maxInnerPower<this.currentInnerPower){
+            this.setCurrentInnerPower(this.maxInnerPower);
+        }
+    }
+
+    //Adds an item object to inventory
     public void addItemToInventory(Item itemToAdd) {
         System.out.println("Item inside add" + itemToAdd);
         switch (itemToAdd.getItemType()) {
@@ -129,12 +162,7 @@ public abstract class CharacterModel {
         }
     }
 
-
-
-
-
-
-
+    //removes an item object from the inventory by id
     public void removeItemFromInventoryById(String id){
         for (int i = 0; i < this.inventory.size() ; i++) {
             if(this.inventory.get(i).getId().equals(id)){
@@ -142,10 +170,8 @@ public abstract class CharacterModel {
                 break;
             }
         }
-
-
     }
-
+    //uses an item from inventory by its id
     public void useItemFromInventoryById(String id){
 
         for (int i = 0; i < this.getInventory().size(); i++) {
@@ -394,11 +420,11 @@ public abstract class CharacterModel {
 
     }
 
-    //initialize base Defence value from character race and character class
+    //initialize base Defence value from character race
     public void initDefence() {
 
-        if(this.characterMainClass !=null && this.characterRace!=null){
-            this.defence = (this.characterRace.getStatModifier()+ this.characterMainClass.getBaseDefence())*this.level;
+        if(this.characterRace!=null){
+            this.defence = (this.characterRace.getStatModifier())*this.level;
 
                 this.defence= this.defence+this.getGear().getHelmet().getDefenceModifier()
                         +this.getGear().getBoots().getDefenceModifier()
@@ -411,11 +437,11 @@ public abstract class CharacterModel {
         }
     }
 
-    //initialize base Attack value from character race and character class
+    //initialize base Attack value from character race
     public void initAttack() {
 
-        if(this.characterMainClass !=null && this.characterRace!=null){
-            this.attack = ((this.characterRace.getStatModifier()+ this.characterMainClass.getBaseAttack())*this.level);
+        if(this.characterRace!=null){
+            this.attack = ((this.characterRace.getStatModifier())*this.level);
             if(this.gear.getWeapon()!=null){
                 this.attack= this.attack
                         +this.getGear().getWeapon().getAttackModifier()
@@ -425,11 +451,11 @@ public abstract class CharacterModel {
 
     }
 
-    //initialize base Magic Attack value from character race and character class
+    //initialize base Magic Attack value from character race
     public void initMagicAttack() {
 
-        if(this.characterMainClass !=null && this.characterRace!=null){
-            this.magicAttack = (this.characterRace.getStatModifier()+ this.characterMainClass.getBaseMagicAttack())*this.level;
+        if(this.characterRace!=null){
+            this.magicAttack = (this.characterRace.getStatModifier())*this.level;
             this.magicAttack = this.magicAttack+this.getGear().getWeapon().getAttackModifier()
                     +this.getGear().getOffHand().getMagicAttackModifier();
         }
@@ -438,8 +464,8 @@ public abstract class CharacterModel {
     //initialize base Magic Defence value from character race and character class
     public void initMagicDefence() {
 
-        if(this.characterMainClass !=null && this.characterRace!=null){
-            this.magicDefence = (this.characterRace.getStatModifier()+ this.characterMainClass.getBaseMagicDefence())*this.level;
+        if(this.characterRace!=null){
+            this.magicDefence = (this.characterRace.getStatModifier())*this.level;
             this.magicDefence = this.magicDefence + this.getGear().getAmulet().getMagicDefenceModifier()
                     +this.getGear().getRing1().getMagicDefenceModifier()
                     +this.getGear().getRing2().getMagicDefenceModifier();
@@ -447,48 +473,39 @@ public abstract class CharacterModel {
     }
 
     public void initSpeed() {
-        if(this.characterMainClass !=null && this.characterRace!=null){
-            this.speed = (this.characterRace.getStatModifier()+ this.characterMainClass.getBaseSpeed())*this.level;
+        if(this.characterRace!=null){
+            this.speed = (this.characterRace.getStatModifier())*this.level;
         }
-    }
-
-    //initialize resource based on character class
-    public void initResource() {
-        this.resource = this.characterMainClass.getResourceBaseValue();
-    }
-
-    //initialize resourceName based on characterClass
-    public void initResourceName() {
-        this.resourceName = this.characterMainClass.getResourceName();
     }
 
     //Runs all initializes
     public void statInitializer(){
         this.initGear();
         this.initMaxHpAndCurrentHp();
+        this.initMaxInnerPowerAndCurrentInnerPower();
         this.initAttack();
         this.initDefence();
         this.initMagicAttack();
         this.initMagicDefence();
-        this.initResourceName();
-        this.initResource();
         this.initSpeed();
-
         this.characterSkills= new ArrayList<>();
-        characterSkills.addAll(this.characterMainClass.getClassSkills());
+
     }
 
+    //recalculates character stats when character level up (use for level up only!)
     public void recalculateStatsForLvl(){
         this.initMaxHpAndCurrentHp();
+        this.initMaxInnerPowerAndCurrentInnerPower();
         this.initAttack();
         this.initDefence();
         this.initMagicAttack();
         this.initMagicDefence();
         this.initSpeed();
     }
-
+    //recalculates character stats generally
     public void recalculateStats(){
         this.initMaxHp();
+        this.initMaxInnerPower();
         this.initAttack();
         this.initDefence();
         this.initMagicAttack();
@@ -503,6 +520,7 @@ public abstract class CharacterModel {
 
     }
 
+    //check if the character should level up, if character is eligible for level up increases level and recalculates character stats
     public void checkForLevelUp(){
         Double expNeeded=100* Math.pow(this.getLevel(),2.5);
         if(this.exp>expNeeded.longValue()){

@@ -1,6 +1,7 @@
 package com.wot.wotbackend.endpoints;
 
 
+import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
 import com.wot.wotbackend.documents.Player;
 import com.wot.wotbackend.itemModel.Item;
 import com.wot.wotbackend.repositories.PlayerRepository;
@@ -83,6 +84,36 @@ public class PlayerEndpoint {
             player.getPlayerCharacterList().get(0).addItemToInventory(item);
             playerRepository.save(player);
         });
+
+    }
+
+    @PostMapping("/{pathVariable}/assignSkill")
+    @ResponseBody
+    public Player  assignSkillToCharacter(@PathVariable("pathVariable") String pathVariable,@RequestParam("slotNumber") int slotNumber, @RequestBody CharacterSkill characterSkill) {
+        //System.out.println("Player asked to use an item with name "+item.getItemName());
+        playerRepository.findById(pathVariable).ifPresent(player -> {
+            //System.out.println("Player "+player.getName()+item.getItemName());
+            switch (slotNumber){
+                case 1:
+                    player.getPlayerCharacterList().get(0).setSkill1(characterSkill);
+                    playerRepository.save(player);
+                    break;
+                case 2:
+                    player.getPlayerCharacterList().get(0).setSkill2(characterSkill);
+                    playerRepository.save(player);
+                    break;
+                case 3:
+                    player.getPlayerCharacterList().get(0).setSkill3(characterSkill);
+                    playerRepository.save(player);
+                    break;
+                case 4:
+                    player.getPlayerCharacterList().get(0).setSkill4(characterSkill);
+                    playerRepository.save(player);
+                    break;
+            }
+
+        });
+        return playerRepository.findById(pathVariable).get();
 
     }
 
