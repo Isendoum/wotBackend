@@ -85,7 +85,7 @@ public class MongoDBConfig {
             player.getPlayerCharacterList().get(0).getCharacterSkills().add(Whirlwind.getInstance());
             player.getPlayerCharacterList().get(0).getCharacterSkills().add(ArcaneBolt.getInstance());
 
-            playerRepository.save(player);
+            //playerRepository.save(player);
             Item item = new Potion();
             System.out.println(item.getItemName());
             item.increaseQuantity();

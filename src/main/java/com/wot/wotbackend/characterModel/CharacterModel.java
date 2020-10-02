@@ -456,7 +456,7 @@ public abstract class CharacterModel {
 
         if(this.characterRace!=null){
             this.magicAttack = (this.characterRace.getStatModifier())*this.level;
-            this.magicAttack = this.magicAttack+this.getGear().getWeapon().getAttackModifier()
+            this.magicAttack = this.magicAttack+this.getGear().getWeapon().getMagicAttackModifier()
                     +this.getGear().getOffHand().getMagicAttackModifier();
         }
     }

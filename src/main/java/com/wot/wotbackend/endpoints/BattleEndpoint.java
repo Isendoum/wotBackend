@@ -1,5 +1,6 @@
 package com.wot.wotbackend.endpoints;
 
+import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.creatureModel.CreatureModel;
 import com.wot.wotbackend.documents.Battle;
@@ -85,16 +86,16 @@ public class BattleEndpoint {
 
     }
 
-        @GetMapping("/{id}/attack")
+        @PostMapping("/{id}/attack")
         @ResponseBody
-        public Battle playerAttack(@PathVariable("id") String id){
+        public Battle playerAttack(@PathVariable("id") String id, @RequestBody CharacterSkill skill){
 
 
 
-            System.out.println("I am in attack");
+            System.out.println("Player used"+skill.getCharacterSkillName());
             if(battleRepository.findById(id).isPresent()) {
                 Optional<Battle> battle = battleRepository.findById(id);
-                battle.get().playerAttack();
+                battle.get().playerAttackMove(skill);
                 if(battle.get().getCreature().getHp()>0){
                     battleRepository.save(battle.get());
                     return battleRepository.findById(id).get();

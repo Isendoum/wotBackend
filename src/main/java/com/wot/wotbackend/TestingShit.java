@@ -9,11 +9,10 @@ public class TestingShit {
             System.out.println("Exp needed for level: "+i+" "+exp.longValue());
 
         }*/
-        String itemType= "";
-        for (int i = 0; i < 10 ; i++) {
-            itemType= ItemType.getRandomItemType().toString();
-            System.out.println(itemType);
-        }
+        int attack = 10;
+        int defence =18;
 
+        int hitTaken=  Math.round(attack-(defence*0.1f));
+        System.out.println(hitTaken);
     }
 }
