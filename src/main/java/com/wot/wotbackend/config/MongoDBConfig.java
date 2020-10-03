@@ -3,17 +3,15 @@ package com.wot.wotbackend.config;
 
 
 import com.wot.wotbackend.characterModel.Character;
-import com.wot.wotbackend.characterModel.characterClass.WarriorClass;
 import com.wot.wotbackend.characterModel.characterRace.HumanRace;
 import com.wot.wotbackend.characterModel.characterSkill.ArcaneBolt;
 import com.wot.wotbackend.characterModel.characterSkill.MagicAttack;
 import com.wot.wotbackend.characterModel.characterSkill.MeleeAttack;
-import com.wot.wotbackend.characterModel.characterSkill.Whirlwind;
+import com.wot.wotbackend.characterModel.characterSkill.WildSwing;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.creatureModel.creatureClan.Lemesur;
 import com.wot.wotbackend.creatureModel.types.Undead;
 import com.wot.wotbackend.documents.Player;
-import com.wot.wotbackend.itemModel.GearModels.Weapon;
 import com.wot.wotbackend.itemModel.Item;
 import com.wot.wotbackend.itemModel.Items.Potion;
 import com.wot.wotbackend.repositories.PlayerRepository;
@@ -82,25 +80,20 @@ public class MongoDBConfig {
             player.setLongitude(longitude);
             player.getPlayerCharacterList().get(0).getCharacterSkills().add(MeleeAttack.getInstance());
             player.getPlayerCharacterList().get(0).getCharacterSkills().add(MagicAttack.getInstance());
-            player.getPlayerCharacterList().get(0).getCharacterSkills().add(Whirlwind.getInstance());
+            player.getPlayerCharacterList().get(0).getCharacterSkills().add(WildSwing.getInstance());
             player.getPlayerCharacterList().get(0).getCharacterSkills().add(ArcaneBolt.getInstance());
 
-            //playerRepository.save(player);
+            playerRepository.save(player);
             Item item = new Potion();
             System.out.println(item.getItemName());
             item.increaseQuantity();
-            Weapon weapon= new Weapon();
-            weapon.setLevelRequired(1);
-            weapon.setItemName("Rusty Sword");
-            weapon.setItemType("Weapon");
-            int rand= (int)(Math.random()*10)+1;
-            weapon.setAttackModifier(rand*weapon.getLevelRequired());
+
             /*playerRepository.findById("5f73b1412d346c7c49bc626e").ifPresent(x->
                     {
 
 
 
-                        //x.getPlayerCharacterList().get(0).addItemToInventory(weapon);
+
                         for (int i = 0; i < 5 ; i++) {
                             x.getPlayerCharacterList().get(0).addItemToInventory(item);
                         }

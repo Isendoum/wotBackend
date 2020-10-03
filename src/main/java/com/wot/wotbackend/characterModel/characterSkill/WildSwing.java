@@ -7,12 +7,12 @@ import lombok.Data;
 
 @Data
 @JsonDeserialize
-public class Whirlwind extends CharacterSkill {
+public class WildSwing extends CharacterSkill {
 
-    private static volatile Whirlwind whirlwind= new Whirlwind();
+    private static volatile WildSwing wildSwing = new WildSwing();
 
-    private Whirlwind(){
-        this.setCharacterSkillName("Whirlwind");
+    private WildSwing(){
+        this.setCharacterSkillName("Wild Swing");
         this.setCharacterSkillModifier(1.5f);
         this.setCharacterSkillType("Melee Attack");
         this.setSkillMaxLevel(5);
@@ -21,7 +21,7 @@ public class Whirlwind extends CharacterSkill {
 
     }
 
-    public static Whirlwind getInstance(){
-        return whirlwind;
+    public static WildSwing getInstance(){
+        return wildSwing;
     }
 }

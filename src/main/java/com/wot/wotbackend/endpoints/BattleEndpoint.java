@@ -46,6 +46,7 @@ public class BattleEndpoint {
             wrapperBattleObj.getCreature().setLevel(wrapperBattleObj.getPlayer().getPlayerCharacterList().get(0).getLevel());
             //create random item and assign it to creature item list
             Item itemToAdd= Item.createRandomItem(wrapperBattleObj.getPlayer().getPlayerCharacterList().get(0).getLevel());
+            System.out.println("Created item level: " + itemToAdd.getLevelRequired());
             wrapperBattleObj.getCreature().getItems().add(itemToAdd);
             wrapperBattleObj.getCreature().recalculateStats();
             Battle battle= new Battle(player,wrapperBattleObj.getCreature());

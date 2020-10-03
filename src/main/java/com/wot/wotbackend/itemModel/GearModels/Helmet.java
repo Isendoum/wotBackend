@@ -14,4 +14,60 @@ import lombok.NoArgsConstructor;
 @JsonDeserialize
 public class Helmet extends Item {
 
+    public Helmet createRandomHelmet(int level){
+        Helmet helmet= new Helmet();
+        if(level==1){
+
+            helmet.setItemType("Helmet");
+            int randLvlReq = helmet.randomWithRange(level,level+1);
+            helmet.setLevelRequired(randLvlReq);
+            helmet.setAttackModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            helmet.setMagicAttackModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            helmet.setHpModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            helmet.setDefenceModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            helmet.setMagicDefenceModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            int helmetAverageStat= (helmet.getHpModifier()+helmet.getAttackModifier()+helmet.getMagicAttackModifier()+helmet.getDefenceModifier()+helmet.getMagicDefenceModifier())/5;
+            if(helmetAverageStat>=level && helmetAverageStat<=level+10){
+                helmet.setItemName("Rusty Helmet");
+            }
+            else if(helmetAverageStat>level+10 && helmetAverageStat<=level+17){
+                helmet.setItemName("Helmet");
+            }
+            else if(helmetAverageStat>level+17 && helmetAverageStat<=level+23){
+                helmet.setItemName("Fine Helmet");
+            }
+            else{
+                helmet.setItemName("Excellent Helmet");
+            }
+        } else{
+
+            helmet.setItemType("Helmet");
+            int randLvlReq = helmet.randomWithRange(level-1,level+1);
+            helmet.setLevelRequired(randLvlReq);
+            helmet.setAttackModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            helmet.setMagicAttackModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            helmet.setHpModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            helmet.setDefenceModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            helmet.setMagicDefenceModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
+            int helmetAverageStat= (helmet.getHpModifier()+helmet.getAttackModifier()+helmet.getMagicAttackModifier()+helmet.getDefenceModifier()+helmet.getMagicDefenceModifier())/5;
+            if(helmetAverageStat>=level && helmetAverageStat<=level+10){
+                helmet.setItemName("Rusty Helmet");
+            }
+            else if(helmetAverageStat>level+10 && helmetAverageStat<=level+17){
+                helmet.setItemName("Helmet");
+            }
+            else if(helmetAverageStat>level+17 && helmetAverageStat<=level+23){
+                helmet.setItemName("Fine Helmet");
+            }
+            else{
+                helmet.setItemName("Excellent Helmet");
+            }
+        }
+
+
+
+
+        return helmet;
+    }
+
 }

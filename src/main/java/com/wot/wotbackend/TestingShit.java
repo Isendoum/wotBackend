@@ -1,5 +1,7 @@
 package com.wot.wotbackend;
 
+import com.wot.wotbackend.itemModel.GearModels.Shoulders;
+import com.wot.wotbackend.itemModel.Item;
 import com.wot.wotbackend.itemModel.ItemType;
 
 public class TestingShit {
@@ -9,10 +11,11 @@ public class TestingShit {
             System.out.println("Exp needed for level: "+i+" "+exp.longValue());
 
         }*/
-        int attack = 10;
-        int defence =18;
+        int po ;
+        for (int i = 0; i < 15 ; i++) {
+            po = new Item().randomWithRange(13-1,13+1);
+            System.out.println(po);
+        }
 
-        int hitTaken=  Math.round(attack-(defence*0.1f));
-        System.out.println(hitTaken);
     }
 }

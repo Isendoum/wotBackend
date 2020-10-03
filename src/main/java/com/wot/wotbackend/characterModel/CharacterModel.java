@@ -63,12 +63,18 @@ public abstract class CharacterModel {
     public void initMaxHpAndCurrentHp(){
         if(this.characterRace!=null){
             this.maxHp = this.characterRace.getStatModifier()*this.level;
-            this.maxHp = this.maxHp+this.getGear().getHelmet().getHpModifier()
-                    +this.getGear().getShoulders().getHpModifier()
+            this.maxHp = this.maxHp
+                    +this.getGear().getWeapon().getHpModifier()
+                    +this.getGear().getOffHand().getHpModifier()
+                    +this.getGear().getPants().getHpModifier()
                     +this.getGear().getChest().getHpModifier()
-                    +this.getGear().getGloves().getHpModifier()
+                    +this.getGear().getHelmet().getHpModifier()
                     +this.getGear().getBoots().getHpModifier()
-                    +this.getGear().getPants().getHpModifier();
+                    +this.getGear().getRing1().getHpModifier()
+                    +this.getGear().getRing2().getHpModifier()
+                    +this.getGear().getAmulet().getHpModifier()
+                    +this.getGear().getShoulders().getHpModifier()
+                    +this.getGear().getGloves().getHpModifier();
         }
         this.currentHp=this.maxHp;
     }
@@ -76,12 +82,18 @@ public abstract class CharacterModel {
     public void initMaxHp(){
         if(this.characterRace!=null){
             this.maxHp = (this.characterRace.getStatModifier())*this.level;
-            this.maxHp = this.maxHp+this.getGear().getHelmet().getHpModifier()
-                    +this.getGear().getShoulders().getHpModifier()
+            this.maxHp = this.maxHp
+                    +this.getGear().getWeapon().getHpModifier()
+                    +this.getGear().getOffHand().getHpModifier()
+                    +this.getGear().getPants().getHpModifier()
                     +this.getGear().getChest().getHpModifier()
-                    +this.getGear().getGloves().getHpModifier()
+                    +this.getGear().getHelmet().getHpModifier()
                     +this.getGear().getBoots().getHpModifier()
-                    +this.getGear().getPants().getHpModifier();
+                    +this.getGear().getRing1().getHpModifier()
+                    +this.getGear().getRing2().getHpModifier()
+                    +this.getGear().getAmulet().getHpModifier()
+                    +this.getGear().getShoulders().getHpModifier()
+                    +this.getGear().getGloves().getHpModifier();
         }
         if(this.maxHp<this.currentHp){
             this.setCurrentHp(this.maxHp);
@@ -426,13 +438,18 @@ public abstract class CharacterModel {
         if(this.characterRace!=null){
             this.defence = (this.characterRace.getStatModifier())*this.level;
 
-                this.defence= this.defence+this.getGear().getHelmet().getDefenceModifier()
-                        +this.getGear().getBoots().getDefenceModifier()
-                        +this.getGear().getChest().getDefenceModifier()
-                        +this.getGear().getGloves().getDefenceModifier()
-                        +this.getGear().getShoulders().getDefenceModifier()
-                        +this.getGear().getPants().getDefenceModifier()
-                        +this.getGear().getOffHand().getDefenceModifier();
+                this.defence= this.defence
+                    +this.getGear().getWeapon().getDefenceModifier()
+                    +this.getGear().getOffHand().getDefenceModifier()
+                    +this.getGear().getPants().getDefenceModifier()
+                    +this.getGear().getChest().getDefenceModifier()
+                    +this.getGear().getHelmet().getDefenceModifier()
+                    +this.getGear().getBoots().getDefenceModifier()
+                    +this.getGear().getRing1().getDefenceModifier()
+                    +this.getGear().getRing2().getDefenceModifier()
+                    +this.getGear().getAmulet().getDefenceModifier()
+                    +this.getGear().getShoulders().getDefenceModifier()
+                    +this.getGear().getGloves().getDefenceModifier();
 
         }
     }
@@ -445,7 +462,16 @@ public abstract class CharacterModel {
             if(this.gear.getWeapon()!=null){
                 this.attack= this.attack
                         +this.getGear().getWeapon().getAttackModifier()
-                        +this.getGear().getOffHand().getAttackModifier();
+                        +this.getGear().getOffHand().getAttackModifier()
+                        +this.getGear().getPants().getAttackModifier()
+                        +this.getGear().getChest().getAttackModifier()
+                        +this.getGear().getHelmet().getAttackModifier()
+                        +this.getGear().getBoots().getAttackModifier()
+                        +this.getGear().getRing1().getAttackModifier()
+                        +this.getGear().getRing2().getAttackModifier()
+                        +this.getGear().getAmulet().getAttackModifier()
+                        +this.getGear().getShoulders().getAttackModifier()
+                        +this.getGear().getGloves().getAttackModifier();
             }
         }
 
@@ -456,8 +482,18 @@ public abstract class CharacterModel {
 
         if(this.characterRace!=null){
             this.magicAttack = (this.characterRace.getStatModifier())*this.level;
-            this.magicAttack = this.magicAttack+this.getGear().getWeapon().getMagicAttackModifier()
-                    +this.getGear().getOffHand().getMagicAttackModifier();
+            this.magicAttack = this.magicAttack
+                    +this.getGear().getWeapon().getMagicAttackModifier()
+                    +this.getGear().getOffHand().getMagicAttackModifier()
+                    +this.getGear().getPants().getMagicAttackModifier()
+                    +this.getGear().getChest().getMagicAttackModifier()
+                    +this.getGear().getHelmet().getMagicAttackModifier()
+                    +this.getGear().getBoots().getMagicAttackModifier()
+                    +this.getGear().getRing1().getMagicAttackModifier()
+                    +this.getGear().getRing2().getMagicAttackModifier()
+                    +this.getGear().getAmulet().getMagicAttackModifier()
+                    +this.getGear().getShoulders().getMagicAttackModifier()
+                    +this.getGear().getGloves().getMagicAttackModifier();
         }
     }
 
@@ -466,9 +502,17 @@ public abstract class CharacterModel {
 
         if(this.characterRace!=null){
             this.magicDefence = (this.characterRace.getStatModifier())*this.level;
-            this.magicDefence = this.magicDefence + this.getGear().getAmulet().getMagicDefenceModifier()
+            this.magicDefence = this.magicDefence + +this.getGear().getWeapon().getMagicAttackModifier()
+                    +this.getGear().getOffHand().getMagicDefenceModifier()
+                    +this.getGear().getPants().getMagicDefenceModifier()
+                    +this.getGear().getChest().getMagicDefenceModifier()
+                    +this.getGear().getHelmet().getMagicDefenceModifier()
+                    +this.getGear().getBoots().getMagicDefenceModifier()
                     +this.getGear().getRing1().getMagicDefenceModifier()
-                    +this.getGear().getRing2().getMagicDefenceModifier();
+                    +this.getGear().getRing2().getMagicDefenceModifier()
+                    +this.getGear().getAmulet().getMagicDefenceModifier()
+                    +this.getGear().getShoulders().getMagicDefenceModifier()
+                    +this.getGear().getGloves().getMagicDefenceModifier();
         }
     }
 

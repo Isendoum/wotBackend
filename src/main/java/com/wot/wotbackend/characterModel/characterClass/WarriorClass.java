@@ -1,6 +1,6 @@
 package com.wot.wotbackend.characterModel.characterClass;
 
-import com.wot.wotbackend.characterModel.characterSkill.Whirlwind;
+import com.wot.wotbackend.characterModel.characterSkill.WildSwing;
 
 public class WarriorClass extends CharacterMainClass {
 
@@ -18,7 +18,7 @@ public class WarriorClass extends CharacterMainClass {
         this.setBaseMagicAttack(1);
         this.setBaseMagicDefence(3);
         this.setBaseSpeed(2);
-        this.addClassSkill(Whirlwind.getInstance());
+        this.addClassSkill(WildSwing.getInstance());
 
 
     }

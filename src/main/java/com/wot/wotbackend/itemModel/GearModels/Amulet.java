@@ -11,5 +11,53 @@ import lombok.NoArgsConstructor;
 
 @JsonDeserialize
 public class Amulet extends Item {
-
+    public Amulet createRandomAmulet(int level){
+        Amulet amulet= new Amulet();
+        if(level==1){
+            amulet.setItemType("Amulet");
+            int randLvlReq = amulet.randomWithRange(level,level+1);
+            amulet.setLevelRequired(randLvlReq);
+            amulet.setAttackModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            amulet.setMagicAttackModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            amulet.setHpModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            amulet.setDefenceModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            amulet.setMagicDefenceModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            int amuletAverageStat= (amulet.getHpModifier()+amulet.getAttackModifier()+amulet.getMagicAttackModifier()+amulet.getDefenceModifier()+amulet.getMagicDefenceModifier())/5;
+            if(amuletAverageStat>=level && amuletAverageStat<=level+10){
+                amulet.setItemName("Rusty Amulet");
+            }
+            else if(amuletAverageStat>level+10 && amuletAverageStat<=level+17){
+                amulet.setItemName("Amulet");
+            }
+            else if(amuletAverageStat>level+17 && amuletAverageStat<=level+23){
+                amulet.setItemName("Fine Amulet");
+            }
+            else{
+                amulet.setItemName("Excellent Amulet");
+            }
+        } else{
+            amulet.setItemType("Amulet");
+            int randLvlReq = amulet.randomWithRange(level-1,level+1);
+            amulet.setLevelRequired(randLvlReq);
+            amulet.setAttackModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            amulet.setMagicAttackModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            amulet.setHpModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            amulet.setDefenceModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            amulet.setMagicDefenceModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
+            int amuletAverageStat= (amulet.getHpModifier()+amulet.getAttackModifier()+amulet.getMagicAttackModifier()+amulet.getDefenceModifier()+amulet.getMagicDefenceModifier())/5;
+            if(amuletAverageStat>=level && amuletAverageStat<=level+10){
+                amulet.setItemName("Rusty Amulet");
+            }
+            else if(amuletAverageStat>level+10 && amuletAverageStat<=level+17){
+                amulet.setItemName("Amulet");
+            }
+            else if(amuletAverageStat>level+17 && amuletAverageStat<=level+23){
+                amulet.setItemName("Fine Amulet");
+            }
+            else{
+                amulet.setItemName("Excellent Amulet");
+            }
+        }
+        return amulet;
+    }
 }
