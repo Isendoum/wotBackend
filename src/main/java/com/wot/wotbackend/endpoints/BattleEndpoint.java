@@ -39,7 +39,7 @@ public class BattleEndpoint {
         System.out.println("--------\nCreature id: "+wrapperBattleObj.getCreature().getId()+"\nLatitude: "+wrapperBattleObj.getPlayer().getLatitude()+" Longitude: "+wrapperBattleObj.getPlayer().getLongitude() +
                 "\nLatitude: "+ wrapperBattleObj.getCreature().getLatitude()+" Longitude"+wrapperBattleObj.getCreature().getLongitude());
         System.out.println(distanceCalculator.distance(wrapperBattleObj.getPlayer().getLatitude(),wrapperBattleObj.getPlayer().getLongitude(),wrapperBattleObj.getCreature().getLatitude(),wrapperBattleObj.getCreature().getLongitude(),"K"));
-        if(distanceCalculator.distance(wrapperBattleObj.getPlayer().getLatitude(),wrapperBattleObj.getPlayer().getLongitude(),wrapperBattleObj.getCreature().getLatitude(),wrapperBattleObj.getCreature().getLongitude(),"K")<=0.15){
+        if(distanceCalculator.distance(wrapperBattleObj.getPlayer().getLatitude(),wrapperBattleObj.getPlayer().getLongitude(),wrapperBattleObj.getCreature().getLatitude(),wrapperBattleObj.getCreature().getLongitude(),"K")<=0.15 && wrapperBattleObj.getPlayer().getPlayerCharacterList().get(0).getCurrentHp()>0){
             Player player = playerRepository.findById(wrapperBattleObj.getPlayer().getId()).get();
 
             //sets creature level based on character level
@@ -87,13 +87,33 @@ public class BattleEndpoint {
 
     }
 
-        @PostMapping("/{id}/attack")
-        @ResponseBody
-        public Battle playerAttack(@PathVariable("id") String id, @RequestBody CharacterSkill skill){
+    @GetMapping("/{id}/creatureAttack")
+    @ResponseBody
+    public Battle creatureAttack(@PathVariable("id") String id){
+        if(battleRepository.findById(id).isPresent()){
 
+            Optional<Battle> battle = battleRepository.findById(id);
+            battle.get().creatureAttack();
+            if(battle.get().getPlayer().getPlayerCharacterList().get(0).getCurrentHp()>0){
+                battleRepository.save(battle.get());
+                return battleRepository.findById(id).get();
+            }else{
+                battle.get().getPlayer().getPlayerCharacterList().get(0).setCurrentHp(0);
+                playerRepository.save(battle.get().getPlayer());
+                battleRepository.deleteById(id);
+                return battle.get();
+            }
 
+        } else{
+            return null;
+        }
 
-            System.out.println("Player used"+skill.getCharacterSkillName());
+    }
+
+    @PostMapping("/{id}/attack")
+    @ResponseBody
+    public Battle playerAttack(@PathVariable("id") String id, @RequestBody CharacterSkill skill){
+        System.out.println("Player used"+skill.getCharacterSkillName());
             if(battleRepository.findById(id).isPresent()) {
                 Optional<Battle> battle = battleRepository.findById(id);
                 battle.get().playerAttackMove(skill);

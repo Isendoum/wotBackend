@@ -56,7 +56,7 @@ public class Battle {
 
     }
 
-    @Scheduled(initialDelay = 1000,fixedRate = 5000)
+
     public void creatureAttack(){
         int hitTaken = Math.round(((100 / this.player.getPlayerCharacterList().get(0).getDefence())/10)*this.creature.getAttack());
 

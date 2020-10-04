@@ -12,6 +12,7 @@ import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.creatureModel.creatureClan.Lemesur;
 import com.wot.wotbackend.creatureModel.types.Undead;
 import com.wot.wotbackend.documents.Player;
+import com.wot.wotbackend.documents.WorldStructure;
 import com.wot.wotbackend.itemModel.Item;
 import com.wot.wotbackend.itemModel.Items.Potion;
 import com.wot.wotbackend.repositories.PlayerRepository;
@@ -52,8 +53,8 @@ public class MongoDBConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(){
-        double latitude=37.4219983;
-        double longitude=-122.084;
+        double latitude=35.491012;
+        double longitude=24.0698143;
         Portal portal= new Portal();
         portal.setLatitude(latitude);
         portal.setLongitude(longitude);
@@ -83,7 +84,7 @@ public class MongoDBConfig {
             player.getPlayerCharacterList().get(0).getCharacterSkills().add(WildSwing.getInstance());
             player.getPlayerCharacterList().get(0).getCharacterSkills().add(ArcaneBolt.getInstance());
 
-            playerRepository.save(player);
+            //playerRepository.save(player);
             Item item = new Potion();
             System.out.println(item.getItemName());
             item.increaseQuantity();
@@ -101,7 +102,7 @@ public class MongoDBConfig {
                     playerRepository.save(x);
                     }
             );*/
-            //worldStructureRepository.save(new WorldStructure(portal));
+           // worldStructureRepository.save(new WorldStructure(portal));
 
         };
 
