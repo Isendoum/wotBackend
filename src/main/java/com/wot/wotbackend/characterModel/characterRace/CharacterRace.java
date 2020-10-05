@@ -15,6 +15,13 @@ public class CharacterRace {
     private String raceName;
     private List<CharacterSkill> raceSkills;
     private float statModifier;
+    private float hp;
+    private float attack;
+    private float defence;
+    private float magicAttack;
+    private float magicDefence;
+    private float speed;
+    private float innerPower;
 
     public String getRaceName() {
         return raceName;

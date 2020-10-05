@@ -29,15 +29,19 @@ public class Pants extends Item {
             int pantsAverageStat= (pants.getHpModifier()+pants.getAttackModifier()+pants.getMagicAttackModifier()+pants.getDefenceModifier()+pants.getMagicDefenceModifier())/5;
             if(pantsAverageStat>=level && pantsAverageStat<=level+10){
                 pants.setItemName("Rusty Pants");
+                pants.setGoldValue((Math.round((float)pantsAverageStat/4)*level));
             }
             else if(pantsAverageStat>level+10 && pantsAverageStat<=level+17){
                 pants.setItemName("Pants");
+                pants.setGoldValue((Math.round((float)pantsAverageStat/3)*level));
             }
             else if(pantsAverageStat>level+17 && pantsAverageStat<=level+23){
                 pants.setItemName("Fine Pants");
+                pants.setGoldValue((Math.round((float)pantsAverageStat/2)*level));
             }
             else{
                 pants.setItemName("Excellent Pants");
+                pants.setGoldValue(pantsAverageStat*level);
             }
         } else{
             pants.setItemType("Pants");
@@ -51,15 +55,19 @@ public class Pants extends Item {
             int pantsAverageStat= (pants.getHpModifier()+pants.getAttackModifier()+pants.getMagicAttackModifier()+pants.getDefenceModifier()+pants.getMagicDefenceModifier())/5;
             if(pantsAverageStat>=level && pantsAverageStat<=level+10){
                 pants.setItemName("Rusty Pants");
+                pants.setGoldValue((Math.round((float)pantsAverageStat/4)*level));
             }
             else if(pantsAverageStat>level+10 && pantsAverageStat<=level+17){
                 pants.setItemName("Pants");
+                pants.setGoldValue((Math.round((float)pantsAverageStat/3)*level));
             }
             else if(pantsAverageStat>level+17 && pantsAverageStat<=level+23){
                 pants.setItemName("Fine Pants");
+                pants.setGoldValue((Math.round((float)pantsAverageStat/2)*level));
             }
             else{
                 pants.setItemName("Excellent Pants");
+                pants.setGoldValue(pantsAverageStat*level);
             }
         }
         return pants;

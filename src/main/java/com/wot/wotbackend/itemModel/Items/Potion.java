@@ -17,6 +17,7 @@ public class Potion extends Item {
         this.setItemName("Potion");
         this.setItemAbility(HealHp.getInstance());
         this.setItemType("Consumable");
+        this.setGoldValue(200);
 
     }
 

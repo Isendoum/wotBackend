@@ -26,15 +26,19 @@ public class Chest extends Item {
             int chestAverageStat= (chest.getHpModifier()+chest.getAttackModifier()+chest.getMagicAttackModifier()+chest.getDefenceModifier()+chest.getMagicDefenceModifier())/5;
             if(chestAverageStat>=level && chestAverageStat<=level+10){
                 chest.setItemName("Rusty Chest");
+                chest.setGoldValue((Math.round((float)chestAverageStat/4)*level));
             }
             else if(chestAverageStat>level+10 && chestAverageStat<=level+17){
                 chest.setItemName("Chest");
+                chest.setGoldValue((Math.round((float)chestAverageStat/3)*level));
             }
             else if(chestAverageStat>level+17 && chestAverageStat<=level+23){
                 chest.setItemName("Fine Chest");
+                chest.setGoldValue((Math.round((float)chestAverageStat/2)*level));
             }
             else{
                 chest.setItemName("Excellent Chest");
+                chest.setGoldValue(chestAverageStat*level);
             }
         } else{
             chest.setItemType("Chest");
@@ -48,15 +52,19 @@ public class Chest extends Item {
             int chestAverageStat= (chest.getHpModifier()+chest.getAttackModifier()+chest.getMagicAttackModifier()+chest.getDefenceModifier()+chest.getMagicDefenceModifier())/5;
             if(chestAverageStat>=level && chestAverageStat<=level+10){
                 chest.setItemName("Rusty Chest");
+                chest.setGoldValue((Math.round((float)chestAverageStat/4)*level));
             }
             else if(chestAverageStat>level+10 && chestAverageStat<=level+17){
                 chest.setItemName("Chest");
+                chest.setGoldValue((Math.round((float)chestAverageStat/3)*level));
             }
             else if(chestAverageStat>level+17 && chestAverageStat<=level+23){
                 chest.setItemName("Fine Chest");
+                chest.setGoldValue((Math.round((float)chestAverageStat/2)*level));
             }
             else{
                 chest.setItemName("Excellent Chest");
+                chest.setGoldValue(chestAverageStat*level);
             }
         }
         return chest;

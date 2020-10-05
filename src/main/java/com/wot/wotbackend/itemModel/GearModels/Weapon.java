@@ -26,15 +26,19 @@ public class Weapon extends Item {
             int weaponAverageStat= (weapon.getHpModifier()+weapon.getAttackModifier()+weapon.getMagicAttackModifier()+weapon.getDefenceModifier()+weapon.getMagicDefenceModifier())/5;
             if(weaponAverageStat>=level && weaponAverageStat<=level+10){
                 weapon.setItemName("Rusty Sword");
+                weapon.setGoldValue((Math.round((float)weaponAverageStat/4)*level));
             }
             else if(weaponAverageStat>level+10 && weaponAverageStat<=level+17){
                 weapon.setItemName("Sword");
+                weapon.setGoldValue((Math.round((float)weaponAverageStat/3)*level));
             }
             else if(weaponAverageStat>level+17 && weaponAverageStat<=(level+23)){
                 weapon.setItemName("Fine Sword");
+                weapon.setGoldValue((Math.round((float)weaponAverageStat/2)*level));
             }
             else{
                 weapon.setItemName("Excellent Sword");
+                weapon.setGoldValue(weaponAverageStat*level);
             }
         } else{
             weapon.setItemType("Weapon");
@@ -48,15 +52,19 @@ public class Weapon extends Item {
             int weaponAverageStat= (weapon.getHpModifier()+weapon.getAttackModifier()+weapon.getMagicAttackModifier()+weapon.getDefenceModifier()+weapon.getMagicDefenceModifier())/5;
             if(weaponAverageStat>=level && weaponAverageStat<=level+10){
                 weapon.setItemName("Rusty Sword");
+                weapon.setGoldValue((Math.round((float)weaponAverageStat/4)*level));
             }
             else if(weaponAverageStat>level+10 && weaponAverageStat<=level+17){
                 weapon.setItemName("Sword");
+                weapon.setGoldValue((Math.round((float)weaponAverageStat/3)*level));
             }
             else if(weaponAverageStat>level+17 && weaponAverageStat<=(level+23)){
                 weapon.setItemName("Fine Sword");
+                weapon.setGoldValue((Math.round((float)weaponAverageStat/2)*level));
             }
             else{
                 weapon.setItemName("Excellent Sword");
+                weapon.setGoldValue(weaponAverageStat*level);
             }
         }
         return weapon;

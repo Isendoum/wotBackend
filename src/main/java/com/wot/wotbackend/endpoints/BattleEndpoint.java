@@ -124,8 +124,11 @@ public class BattleEndpoint {
                 else{
                     battle.get().getCreature().setHp(0);
                     long playerCurrentExp = battle.get().getPlayer().getPlayerCharacterList().get(0).getExp();
+                    int playerGold= battle.get().getPlayer().getPlayerCharacterList().get(0).getGold();
                     int creatureExp = battle.get().getCreature().getExp();
+                    int creatureGold= battle.get().getCreature().getGold();
                     battle.get().getPlayer().getPlayerCharacterList().get(0).setExp(playerCurrentExp+creatureExp);
+                    battle.get().getPlayer().getPlayerCharacterList().get(0).setGold(playerGold+creatureGold);
                     battle.get().getPlayer().getPlayerCharacterList().get(0).checkForLevelUp();
 
                     playerRepository.save(battle.get().getPlayer());

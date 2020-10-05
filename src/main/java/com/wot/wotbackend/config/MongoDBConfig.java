@@ -22,6 +22,7 @@ import com.wot.wotbackend.repositories.WorldStructureRepository;
 import com.wot.wotbackend.services.location.LocationModel;
 import com.wot.wotbackend.services.location.RandomLocation;
 import com.wot.wotbackend.worldStructures.portal.Portal;
+import com.wot.wotbackend.worldStructures.portal.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.CommandLineRunner;
@@ -53,8 +54,8 @@ public class MongoDBConfig {
 
     @Bean
     CommandLineRunner commandLineRunner(){
-        double latitude=35.491012;
-        double longitude=24.0698143;
+        double latitude=37.4219983;
+        double longitude=-122.084;
         Portal portal= new Portal();
         portal.setLatitude(latitude);
         portal.setLongitude(longitude);
@@ -102,7 +103,10 @@ public class MongoDBConfig {
                     playerRepository.save(x);
                     }
             );*/
-           // worldStructureRepository.save(new WorldStructure(portal));
+            Shop shop= new Shop(10);
+            shop.setLatitude(latitude);
+            shop.setLongitude(longitude);
+         // worldStructureRepository.save(new WorldStructure (shop));
 
         };
 

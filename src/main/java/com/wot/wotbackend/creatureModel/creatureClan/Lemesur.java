@@ -10,9 +10,10 @@ public class Lemesur extends CreatureClan {
 
         this.setExp(10);
         this.setClanName("Lemesur");
-        this.setHpModifier(20);
+        this.setHpModifier(30);
         this.setMeleeModifier(5);
         this.setMagicModifier(2);
+
 
     }
 

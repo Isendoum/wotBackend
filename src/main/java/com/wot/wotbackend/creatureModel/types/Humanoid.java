@@ -10,11 +10,11 @@ public class Humanoid extends CreatureType {
     private static volatile Humanoid humanoid = new Humanoid();
 
     public Humanoid() {
-        this.setExp(50);
-        this.setHpModifier(20);
+        this.setExp(90);
+        this.setHpModifier(15);
         this.setTypeName("Humanoid");
-        this.setMeleeModifier(5);
-        this.setMagicModifier(2);
+        this.setMeleeModifier(8);
+        this.setMagicModifier(6);
     }
 
     public static Humanoid getInstance(){

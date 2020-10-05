@@ -59,10 +59,14 @@ public abstract class CharacterModel {
 
     public void increaseCurrentHp(float hp){this.currentHp=this.currentHp+hp;}
 
+    public void reduceCurrentInnerPower(int innerPowerConsumed){
+        this.currentInnerPower=this.currentInnerPower-innerPowerConsumed;
+    }
+
     //initialize base Hp from character race
     public void initMaxHpAndCurrentHp(){
         if(this.characterRace!=null){
-            this.maxHp = this.characterRace.getStatModifier()*this.level;
+            this.maxHp = this.characterRace.getHp()+Math.round(this.characterRace.getHp()*((float)this.level/3));
             this.maxHp = this.maxHp
                     +this.getGear().getWeapon().getHpModifier()
                     +this.getGear().getOffHand().getHpModifier()
@@ -81,7 +85,7 @@ public abstract class CharacterModel {
 
     public void initMaxHp(){
         if(this.characterRace!=null){
-            this.maxHp = (this.characterRace.getStatModifier())*this.level;
+            this.maxHp = this.characterRace.getHp()+Math.round(this.characterRace.getHp()*((float)this.level/3));
             this.maxHp = this.maxHp
                     +this.getGear().getWeapon().getHpModifier()
                     +this.getGear().getOffHand().getHpModifier()
@@ -104,7 +108,7 @@ public abstract class CharacterModel {
     //initialize base Inner Power from character race
     public void initMaxInnerPowerAndCurrentInnerPower(){
         if(this.characterRace!=null){
-            this.maxInnerPower = Math.round(this.characterRace.getStatModifier()*this.level);
+            this.maxInnerPower = Math.round(this.characterRace.getInnerPower()+Math.round(this.characterRace.getInnerPower()*((float)this.level/3)));
             this.maxInnerPower = this.maxInnerPower+this.getGear().getHelmet().getMagicAttackModifier()
                     +this.getGear().getShoulders().getMagicAttackModifier()
                     +this.getGear().getChest().getMagicAttackModifier()
@@ -117,7 +121,7 @@ public abstract class CharacterModel {
 
     public void initMaxInnerPower(){
         if(this.characterRace!=null){
-            this.maxInnerPower = Math.round(this.characterRace.getStatModifier()*this.level);
+            this.maxInnerPower = Math.round(this.characterRace.getInnerPower()+Math.round(this.characterRace.getInnerPower()*((float)this.level/3)));
             this.maxInnerPower = this.maxInnerPower+this.getGear().getHelmet().getMagicAttackModifier()
                     +this.getGear().getShoulders().getMagicAttackModifier()
                     +this.getGear().getChest().getMagicAttackModifier()
@@ -131,6 +135,149 @@ public abstract class CharacterModel {
     }
 
     //Adds an item object to inventory
+
+    //initialize base Defence value from character race
+    public void initDefence() {
+
+        if(this.characterRace!=null){
+            this.defence = Math.round(this.characterRace.getDefence()+Math.round(this.characterRace.getDefence()*((float)this.level/3)));
+
+                this.defence= this.defence
+                    +this.getGear().getWeapon().getDefenceModifier()
+                    +this.getGear().getOffHand().getDefenceModifier()
+                    +this.getGear().getPants().getDefenceModifier()
+                    +this.getGear().getChest().getDefenceModifier()
+                    +this.getGear().getHelmet().getDefenceModifier()
+                    +this.getGear().getBoots().getDefenceModifier()
+                    +this.getGear().getRing1().getDefenceModifier()
+                    +this.getGear().getRing2().getDefenceModifier()
+                    +this.getGear().getAmulet().getDefenceModifier()
+                    +this.getGear().getShoulders().getDefenceModifier()
+                    +this.getGear().getGloves().getDefenceModifier();
+
+        }
+    }
+
+    //initialize base Attack value from character race
+    public void initAttack() {
+
+        if(this.characterRace!=null){
+            this.attack =Math.round(this.characterRace.getAttack()+Math.round(this.characterRace.getAttack()*((float)this.level/3)));
+            if(this.gear.getWeapon()!=null){
+                this.attack= this.attack
+                        +this.getGear().getWeapon().getAttackModifier()
+                        +this.getGear().getOffHand().getAttackModifier()
+                        +this.getGear().getPants().getAttackModifier()
+                        +this.getGear().getChest().getAttackModifier()
+                        +this.getGear().getHelmet().getAttackModifier()
+                        +this.getGear().getBoots().getAttackModifier()
+                        +this.getGear().getRing1().getAttackModifier()
+                        +this.getGear().getRing2().getAttackModifier()
+                        +this.getGear().getAmulet().getAttackModifier()
+                        +this.getGear().getShoulders().getAttackModifier()
+                        +this.getGear().getGloves().getAttackModifier();
+            }
+        }
+
+    }
+
+    //initialize base Magic Attack value from character race
+    public void initMagicAttack() {
+
+        if(this.characterRace!=null){
+            this.magicAttack = Math.round(this.characterRace.getMagicAttack()+Math.round(this.characterRace.getMagicAttack()*((float)this.level/3)));
+            this.magicAttack = this.magicAttack
+                    +this.getGear().getWeapon().getMagicAttackModifier()
+                    +this.getGear().getOffHand().getMagicAttackModifier()
+                    +this.getGear().getPants().getMagicAttackModifier()
+                    +this.getGear().getChest().getMagicAttackModifier()
+                    +this.getGear().getHelmet().getMagicAttackModifier()
+                    +this.getGear().getBoots().getMagicAttackModifier()
+                    +this.getGear().getRing1().getMagicAttackModifier()
+                    +this.getGear().getRing2().getMagicAttackModifier()
+                    +this.getGear().getAmulet().getMagicAttackModifier()
+                    +this.getGear().getShoulders().getMagicAttackModifier()
+                    +this.getGear().getGloves().getMagicAttackModifier();
+        }
+    }
+
+    //initialize base Magic Defence value from character race and character class
+    public void initMagicDefence() {
+
+        if(this.characterRace!=null){
+            this.magicDefence = Math.round(this.characterRace.getMagicDefence()+Math.round(this.characterRace.getMagicDefence()*((float)this.level/3)));
+            this.magicDefence = this.magicDefence + +this.getGear().getWeapon().getMagicAttackModifier()
+                    +this.getGear().getOffHand().getMagicDefenceModifier()
+                    +this.getGear().getPants().getMagicDefenceModifier()
+                    +this.getGear().getChest().getMagicDefenceModifier()
+                    +this.getGear().getHelmet().getMagicDefenceModifier()
+                    +this.getGear().getBoots().getMagicDefenceModifier()
+                    +this.getGear().getRing1().getMagicDefenceModifier()
+                    +this.getGear().getRing2().getMagicDefenceModifier()
+                    +this.getGear().getAmulet().getMagicDefenceModifier()
+                    +this.getGear().getShoulders().getMagicDefenceModifier()
+                    +this.getGear().getGloves().getMagicDefenceModifier();
+        }
+    }
+
+    public void initSpeed() {
+        if(this.characterRace!=null){
+            this.speed = Math.round(this.characterRace.getSpeed()+Math.round(this.characterRace.getSpeed()*((float)this.level/3)));
+        }
+    }
+
+    //Runs all initializes
+    public void statInitializer(){
+        this.initGear();
+        this.initMaxHpAndCurrentHp();
+        this.initMaxInnerPowerAndCurrentInnerPower();
+        this.initAttack();
+        this.initDefence();
+        this.initMagicAttack();
+        this.initMagicDefence();
+        this.initSpeed();
+        this.characterSkills= new ArrayList<>();
+
+    }
+
+    //recalculates character stats when character level up (use for level up only!)
+    public void recalculateStatsForLvl(){
+        this.initMaxHpAndCurrentHp();
+        this.initMaxInnerPowerAndCurrentInnerPower();
+        this.initAttack();
+        this.initDefence();
+        this.initMagicAttack();
+        this.initMagicDefence();
+        this.initSpeed();
+    }
+    //recalculates character stats generally
+    public void recalculateStats(){
+        this.initMaxHp();
+        this.initMaxInnerPower();
+        this.initAttack();
+        this.initDefence();
+        this.initMagicAttack();
+        this.initMagicDefence();
+        this.initSpeed();
+    }
+
+    public CharacterSkill getCharSkillByName(String skillName){
+        if(skillName.equals(characterSkills.listIterator().next().getCharacterSkillName())){
+            return characterSkills.listIterator().next();
+        }else return null;
+
+    }
+
+    //check if the character should level up, if character is eligible for level up increases level and recalculates character stats
+    public void checkForLevelUp(){
+        Double expNeeded=100* Math.pow(this.getLevel(),2.5);
+        if(this.exp>expNeeded.longValue()){
+            this.setLevel(this.getLevel()+1);
+            recalculateStatsForLvl();
+            System.out.println("level up!");
+        }
+    }
+
     public void addItemToInventory(Item itemToAdd) {
         System.out.println("Item inside add" + itemToAdd);
         switch (itemToAdd.getItemType()) {
@@ -183,6 +330,7 @@ public abstract class CharacterModel {
             }
         }
     }
+
     //uses an item from inventory by its id
     public void useItemFromInventoryById(String id){
 
@@ -430,148 +578,6 @@ public abstract class CharacterModel {
 
         }
 
-    }
-
-    //initialize base Defence value from character race
-    public void initDefence() {
-
-        if(this.characterRace!=null){
-            this.defence = (this.characterRace.getStatModifier())*this.level;
-
-                this.defence= this.defence
-                    +this.getGear().getWeapon().getDefenceModifier()
-                    +this.getGear().getOffHand().getDefenceModifier()
-                    +this.getGear().getPants().getDefenceModifier()
-                    +this.getGear().getChest().getDefenceModifier()
-                    +this.getGear().getHelmet().getDefenceModifier()
-                    +this.getGear().getBoots().getDefenceModifier()
-                    +this.getGear().getRing1().getDefenceModifier()
-                    +this.getGear().getRing2().getDefenceModifier()
-                    +this.getGear().getAmulet().getDefenceModifier()
-                    +this.getGear().getShoulders().getDefenceModifier()
-                    +this.getGear().getGloves().getDefenceModifier();
-
-        }
-    }
-
-    //initialize base Attack value from character race
-    public void initAttack() {
-
-        if(this.characterRace!=null){
-            this.attack = ((this.characterRace.getStatModifier())*this.level);
-            if(this.gear.getWeapon()!=null){
-                this.attack= this.attack
-                        +this.getGear().getWeapon().getAttackModifier()
-                        +this.getGear().getOffHand().getAttackModifier()
-                        +this.getGear().getPants().getAttackModifier()
-                        +this.getGear().getChest().getAttackModifier()
-                        +this.getGear().getHelmet().getAttackModifier()
-                        +this.getGear().getBoots().getAttackModifier()
-                        +this.getGear().getRing1().getAttackModifier()
-                        +this.getGear().getRing2().getAttackModifier()
-                        +this.getGear().getAmulet().getAttackModifier()
-                        +this.getGear().getShoulders().getAttackModifier()
-                        +this.getGear().getGloves().getAttackModifier();
-            }
-        }
-
-    }
-
-    //initialize base Magic Attack value from character race
-    public void initMagicAttack() {
-
-        if(this.characterRace!=null){
-            this.magicAttack = (this.characterRace.getStatModifier())*this.level;
-            this.magicAttack = this.magicAttack
-                    +this.getGear().getWeapon().getMagicAttackModifier()
-                    +this.getGear().getOffHand().getMagicAttackModifier()
-                    +this.getGear().getPants().getMagicAttackModifier()
-                    +this.getGear().getChest().getMagicAttackModifier()
-                    +this.getGear().getHelmet().getMagicAttackModifier()
-                    +this.getGear().getBoots().getMagicAttackModifier()
-                    +this.getGear().getRing1().getMagicAttackModifier()
-                    +this.getGear().getRing2().getMagicAttackModifier()
-                    +this.getGear().getAmulet().getMagicAttackModifier()
-                    +this.getGear().getShoulders().getMagicAttackModifier()
-                    +this.getGear().getGloves().getMagicAttackModifier();
-        }
-    }
-
-    //initialize base Magic Defence value from character race and character class
-    public void initMagicDefence() {
-
-        if(this.characterRace!=null){
-            this.magicDefence = (this.characterRace.getStatModifier())*this.level;
-            this.magicDefence = this.magicDefence + +this.getGear().getWeapon().getMagicAttackModifier()
-                    +this.getGear().getOffHand().getMagicDefenceModifier()
-                    +this.getGear().getPants().getMagicDefenceModifier()
-                    +this.getGear().getChest().getMagicDefenceModifier()
-                    +this.getGear().getHelmet().getMagicDefenceModifier()
-                    +this.getGear().getBoots().getMagicDefenceModifier()
-                    +this.getGear().getRing1().getMagicDefenceModifier()
-                    +this.getGear().getRing2().getMagicDefenceModifier()
-                    +this.getGear().getAmulet().getMagicDefenceModifier()
-                    +this.getGear().getShoulders().getMagicDefenceModifier()
-                    +this.getGear().getGloves().getMagicDefenceModifier();
-        }
-    }
-
-    public void initSpeed() {
-        if(this.characterRace!=null){
-            this.speed = (this.characterRace.getStatModifier())*this.level;
-        }
-    }
-
-    //Runs all initializes
-    public void statInitializer(){
-        this.initGear();
-        this.initMaxHpAndCurrentHp();
-        this.initMaxInnerPowerAndCurrentInnerPower();
-        this.initAttack();
-        this.initDefence();
-        this.initMagicAttack();
-        this.initMagicDefence();
-        this.initSpeed();
-        this.characterSkills= new ArrayList<>();
-
-    }
-
-    //recalculates character stats when character level up (use for level up only!)
-    public void recalculateStatsForLvl(){
-        this.initMaxHpAndCurrentHp();
-        this.initMaxInnerPowerAndCurrentInnerPower();
-        this.initAttack();
-        this.initDefence();
-        this.initMagicAttack();
-        this.initMagicDefence();
-        this.initSpeed();
-    }
-    //recalculates character stats generally
-    public void recalculateStats(){
-        this.initMaxHp();
-        this.initMaxInnerPower();
-        this.initAttack();
-        this.initDefence();
-        this.initMagicAttack();
-        this.initMagicDefence();
-        this.initSpeed();
-    }
-
-    public CharacterSkill getCharSkillByName(String skillName){
-        if(skillName.equals(characterSkills.listIterator().next().getCharacterSkillName())){
-            return characterSkills.listIterator().next();
-        }else return null;
-
-    }
-
-    //check if the character should level up, if character is eligible for level up increases level and recalculates character stats
-    public void checkForLevelUp(){
-        Double expNeeded=100* Math.pow(this.getLevel(),2.5);
-        if(this.exp>expNeeded.longValue()){
-            this.setLevel(this.getLevel()+1);
-            recalculateStatsForLvl();
-            System.out.println("level up!");
-        }
     }
 
 

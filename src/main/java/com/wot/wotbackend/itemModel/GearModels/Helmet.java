@@ -29,15 +29,19 @@ public class Helmet extends Item {
             int helmetAverageStat= (helmet.getHpModifier()+helmet.getAttackModifier()+helmet.getMagicAttackModifier()+helmet.getDefenceModifier()+helmet.getMagicDefenceModifier())/5;
             if(helmetAverageStat>=level && helmetAverageStat<=level+10){
                 helmet.setItemName("Rusty Helmet");
+                helmet.setGoldValue((Math.round((float)helmetAverageStat/4)*level));
             }
             else if(helmetAverageStat>level+10 && helmetAverageStat<=level+17){
                 helmet.setItemName("Helmet");
+                helmet.setGoldValue((Math.round((float)helmetAverageStat/3)*level));
             }
             else if(helmetAverageStat>level+17 && helmetAverageStat<=level+23){
                 helmet.setItemName("Fine Helmet");
+                helmet.setGoldValue((Math.round((float)helmetAverageStat/2)*level));
             }
             else{
                 helmet.setItemName("Excellent Helmet");
+                helmet.setGoldValue(helmetAverageStat*level);
             }
         } else{
 
@@ -52,20 +56,21 @@ public class Helmet extends Item {
             int helmetAverageStat= (helmet.getHpModifier()+helmet.getAttackModifier()+helmet.getMagicAttackModifier()+helmet.getDefenceModifier()+helmet.getMagicDefenceModifier())/5;
             if(helmetAverageStat>=level && helmetAverageStat<=level+10){
                 helmet.setItemName("Rusty Helmet");
+                helmet.setGoldValue((Math.round((float)helmetAverageStat/4)*level));
             }
             else if(helmetAverageStat>level+10 && helmetAverageStat<=level+17){
                 helmet.setItemName("Helmet");
+                helmet.setGoldValue((Math.round((float)helmetAverageStat/3)*level));
             }
             else if(helmetAverageStat>level+17 && helmetAverageStat<=level+23){
                 helmet.setItemName("Fine Helmet");
+                helmet.setGoldValue((Math.round((float)helmetAverageStat/2)*level));
             }
             else{
                 helmet.setItemName("Excellent Helmet");
+                helmet.setGoldValue(helmetAverageStat*level);
             }
         }
-
-
-
 
         return helmet;
     }

@@ -30,15 +30,19 @@ public class Ring extends Item {
             int ringAverageStat= (ring.getHpModifier()+ring.getAttackModifier()+ring.getMagicAttackModifier()+ring.getDefenceModifier()+ring.getMagicDefenceModifier())/5;
             if(ringAverageStat>=level && ringAverageStat<=level+10){
                 ring.setItemName("Rusty Ring");
+                ring.setGoldValue((Math.round((float)ringAverageStat/4)*level));
             }
             else if(ringAverageStat>level+10 && ringAverageStat<=level+17){
                 ring.setItemName("Ring");
+                ring.setGoldValue((Math.round((float)ringAverageStat/3)*level));
             }
             else if(ringAverageStat>level+17 && ringAverageStat<=level+23){
                 ring.setItemName("Fine Ring");
+                ring.setGoldValue((Math.round((float)ringAverageStat/2)*level));
             }
             else{
                 ring.setItemName("Excellent Ring");
+                ring.setGoldValue(ringAverageStat*level);
             }
         } else{
             ring.setItemType("Ring");
@@ -52,15 +56,19 @@ public class Ring extends Item {
             int ringAverageStat= (ring.getHpModifier()+ring.getAttackModifier()+ring.getMagicAttackModifier()+ring.getDefenceModifier()+ring.getMagicDefenceModifier())/5;
             if(ringAverageStat>=level && ringAverageStat<=level+10){
                 ring.setItemName("Rusty Ring");
+                ring.setGoldValue((Math.round((float)ringAverageStat/4)*level));
             }
             else if(ringAverageStat>level+10 && ringAverageStat<=level+17){
                 ring.setItemName("Ring");
+                ring.setGoldValue((Math.round((float)ringAverageStat/3)*level));
             }
             else if(ringAverageStat>level+17 && ringAverageStat<=level+23){
                 ring.setItemName("Fine Ring");
+                ring.setGoldValue((Math.round((float)ringAverageStat/2)*level));
             }
             else{
                 ring.setItemName("Excellent Ring");
+                ring.setGoldValue(ringAverageStat*level);
             }
         }
         return ring;

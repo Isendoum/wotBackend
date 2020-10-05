@@ -26,15 +26,19 @@ public class Boots extends Item {
             int bootsAverageStat= (boots.getHpModifier()+boots.getAttackModifier()+boots.getMagicAttackModifier()+boots.getDefenceModifier()+boots.getMagicDefenceModifier())/5;
             if(bootsAverageStat>=level && bootsAverageStat<=level+10){
                 boots.setItemName("Rusty Boots");
+                boots.setGoldValue((Math.round((float)bootsAverageStat/4)*level));
             }
             else if(bootsAverageStat>level+10 && bootsAverageStat<=level+17){
                 boots.setItemName("Boots");
+                boots.setGoldValue((Math.round((float)bootsAverageStat/3)*level));
             }
             else if(bootsAverageStat>level+17 && bootsAverageStat<=level+23){
                 boots.setItemName("Fine Boots");
+                boots.setGoldValue((Math.round((float)bootsAverageStat/2)*level));
             }
             else{
                 boots.setItemName("Excellent Boots");
+                boots.setGoldValue(bootsAverageStat/4*level);
             }
         } else{
             boots.setItemType("Boots");
@@ -48,15 +52,19 @@ public class Boots extends Item {
             int bootsAverageStat= (boots.getHpModifier()+boots.getAttackModifier()+boots.getMagicAttackModifier()+boots.getDefenceModifier()+boots.getMagicDefenceModifier())/5;
             if(bootsAverageStat>=level && bootsAverageStat<=level+10){
                 boots.setItemName("Rusty Boots");
+                boots.setGoldValue((Math.round((float)bootsAverageStat/4)*level));
             }
             else if(bootsAverageStat>level+10 && bootsAverageStat<=level+17){
                 boots.setItemName("Boots");
+                boots.setGoldValue((Math.round((float)bootsAverageStat/3)*level));
             }
             else if(bootsAverageStat>level+17 && bootsAverageStat<=level+23){
                 boots.setItemName("Fine Boots");
+                boots.setGoldValue((Math.round((float)bootsAverageStat/2)*level));
             }
             else{
                 boots.setItemName("Excellent Boots");
+                boots.setGoldValue(bootsAverageStat/4*level);
             }
         }
         return boots;

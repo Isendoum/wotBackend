@@ -11,11 +11,11 @@ public class Undead extends CreatureType {
     private static volatile Undead undead = new Undead();
 
     private Undead(){
-        this.setExp(70);
-        this.setHpModifier(25);
+        this.setExp(110);
+        this.setHpModifier(35);
         this.setTypeName("Undead");
-        this.setMeleeModifier(4);
-        this.setMagicModifier(4);
+        this.setMeleeModifier(10);
+        this.setMagicModifier(10);
     }
 
     public static Undead getInstance(){

@@ -26,15 +26,19 @@ public class OffHand extends Item {
             int offHandAverageStat= (offHand.getHpModifier()+offHand.getAttackModifier()+offHand.getMagicAttackModifier()+offHand.getDefenceModifier()+offHand.getMagicDefenceModifier())/5;
             if(offHandAverageStat>=level && offHandAverageStat<=level+10){
                 offHand.setItemName("Rusty Shield");
+                offHand.setGoldValue((Math.round((float)offHandAverageStat/4)*level));
             }
             else if(offHandAverageStat>level+10 && offHandAverageStat<=level+17){
                 offHand.setItemName("Shield");
+                offHand.setGoldValue((Math.round((float)offHandAverageStat/3)*level));
             }
             else if(offHandAverageStat>level+17 && offHandAverageStat<=level+23){
                 offHand.setItemName("Fine Shield");
+                offHand.setGoldValue((Math.round((float)offHandAverageStat/2)*level));
             }
             else{
                 offHand.setItemName("Excellent Shield");
+                offHand.setGoldValue(offHandAverageStat*level);
             }
         } else{
             offHand.setItemType("Off-Hand");
@@ -48,15 +52,19 @@ public class OffHand extends Item {
             int offHandAverageStat= (offHand.getHpModifier()+offHand.getAttackModifier()+offHand.getMagicAttackModifier()+offHand.getDefenceModifier()+offHand.getMagicDefenceModifier())/5;
             if(offHandAverageStat>=level && offHandAverageStat<=level+10){
                 offHand.setItemName("Rusty Shield");
+                offHand.setGoldValue((Math.round((float)offHandAverageStat/4)*level));
             }
             else if(offHandAverageStat>level+10 && offHandAverageStat<=level+17){
                 offHand.setItemName("Shield");
+                offHand.setGoldValue((Math.round((float)offHandAverageStat/3)*level));
             }
             else if(offHandAverageStat>level+17 && offHandAverageStat<=level+23){
                 offHand.setItemName("Fine Shield");
+                offHand.setGoldValue((Math.round((float)offHandAverageStat/2)*level));
             }
             else{
                 offHand.setItemName("Excellent Shield");
+                offHand.setGoldValue(offHandAverageStat*level);
             }
         }
         return offHand;

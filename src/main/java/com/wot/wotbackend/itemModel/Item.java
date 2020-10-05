@@ -28,6 +28,7 @@ public class Item   {
     private int magicDefenceModifier;
     private int magicAttackModifier;
     private int hpModifier;
+    private int goldValue;
 
 
 

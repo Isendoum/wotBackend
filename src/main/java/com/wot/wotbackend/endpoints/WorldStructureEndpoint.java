@@ -77,15 +77,17 @@ public class WorldStructureEndpoint {
         } );
 
         worldStructureRepository.findAll().forEach(worldStructure -> {
-            if(distanceCalculator.distance(latitude.get(),longitude.get(),worldStructure.getStructureModel().getLatitude(),worldStructure.getStructureModel().getLongitude(),"K")<0.7){
+            if(distanceCalculator.distance(latitude.get(),longitude.get(),worldStructure.getStructureModel().getLatitude(),worldStructure.getStructureModel().getLongitude(),"K")<0.7) {
                 //System.out.println("Got in from structure distance check");
-               Portal portal=(Portal) worldStructure.getStructureModel();
-               portal.getCreatureList().forEach(creature -> {
-                   if(distanceCalculator.distance(latitude.get(),longitude.get(),creature.getLatitude(),creature.getLongitude(),"K")<0.1){
-                      // System.out.println(" creature with id" +creature.getId());
-                       nearbyCreatures.add(creature);
-                   }
-               });
+                if (worldStructure.getStructureModel().getStructureType().equals("Portal")) {
+                    Portal portal = (Portal) worldStructure.getStructureModel();
+                    portal.getCreatureList().forEach(creature -> {
+                        if (distanceCalculator.distance(latitude.get(), longitude.get(), creature.getLatitude(), creature.getLongitude(), "K") < 0.1) {
+                            // System.out.println(" creature with id" +creature.getId());
+                            nearbyCreatures.add(creature);
+                        }
+                    });
+                }
             }
         });
         //System.out.println(nearbyWorldStructures.toString());

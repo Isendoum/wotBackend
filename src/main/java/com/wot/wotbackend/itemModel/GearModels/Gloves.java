@@ -25,15 +25,19 @@ public class Gloves extends Item {
             int glovesAverageStat= (gloves.getHpModifier()+gloves.getAttackModifier()+gloves.getMagicAttackModifier()+gloves.getDefenceModifier()+gloves.getMagicDefenceModifier())/5;
             if(glovesAverageStat>=level && glovesAverageStat<=level+10){
                 gloves.setItemName("Rusty Gloves");
+                gloves.setGoldValue((Math.round((float)glovesAverageStat/4)*level));
             }
             else if(glovesAverageStat>level+10 && glovesAverageStat<=level+17){
                 gloves.setItemName("Gloves");
+                gloves.setGoldValue((Math.round((float)glovesAverageStat/3)*level));
             }
             else if(glovesAverageStat>level+17 && glovesAverageStat<=level+23){
                 gloves.setItemName("Fine Gloves");
+                gloves.setGoldValue((Math.round((float)glovesAverageStat/2)*level));
             }
             else{
                 gloves.setItemName("Excellent Gloves");
+                gloves.setGoldValue(glovesAverageStat*level);
             }
         } else{
             gloves.setItemType("Gloves");
@@ -47,15 +51,19 @@ public class Gloves extends Item {
             int glovesAverageStat= (gloves.getHpModifier()+gloves.getAttackModifier()+gloves.getMagicAttackModifier()+gloves.getDefenceModifier()+gloves.getMagicDefenceModifier())/5;
             if(glovesAverageStat>=level && glovesAverageStat<=level+10){
                 gloves.setItemName("Rusty Gloves");
+                gloves.setGoldValue((Math.round((float)glovesAverageStat/4)*level));
             }
             else if(glovesAverageStat>level+10 && glovesAverageStat<=level+17){
                 gloves.setItemName("Gloves");
+                gloves.setGoldValue((Math.round((float)glovesAverageStat/3)*level));
             }
             else if(glovesAverageStat>level+17 && glovesAverageStat<=level+23){
                 gloves.setItemName("Fine Gloves");
+                gloves.setGoldValue((Math.round((float)glovesAverageStat/2)*level));
             }
             else{
                 gloves.setItemName("Excellent Gloves");
+                gloves.setGoldValue(glovesAverageStat*level);
             }
         }
         return gloves;

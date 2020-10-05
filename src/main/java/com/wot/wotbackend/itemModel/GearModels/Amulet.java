@@ -25,15 +25,19 @@ public class Amulet extends Item {
             int amuletAverageStat= (amulet.getHpModifier()+amulet.getAttackModifier()+amulet.getMagicAttackModifier()+amulet.getDefenceModifier()+amulet.getMagicDefenceModifier())/5;
             if(amuletAverageStat>=level && amuletAverageStat<=level+10){
                 amulet.setItemName("Rusty Amulet");
+                amulet.setGoldValue((Math.round((float)amuletAverageStat/4)*level));
             }
             else if(amuletAverageStat>level+10 && amuletAverageStat<=level+17){
                 amulet.setItemName("Amulet");
+                amulet.setGoldValue((Math.round((float)amuletAverageStat/3)*level));
             }
             else if(amuletAverageStat>level+17 && amuletAverageStat<=level+23){
                 amulet.setItemName("Fine Amulet");
+                amulet.setGoldValue((Math.round((float)amuletAverageStat/2)*level));
             }
             else{
                 amulet.setItemName("Excellent Amulet");
+                amulet.setGoldValue(amuletAverageStat*level);
             }
         } else{
             amulet.setItemType("Amulet");
@@ -47,15 +51,19 @@ public class Amulet extends Item {
             int amuletAverageStat= (amulet.getHpModifier()+amulet.getAttackModifier()+amulet.getMagicAttackModifier()+amulet.getDefenceModifier()+amulet.getMagicDefenceModifier())/5;
             if(amuletAverageStat>=level && amuletAverageStat<=level+10){
                 amulet.setItemName("Rusty Amulet");
+                amulet.setGoldValue((Math.round((float)amuletAverageStat/4)*level));
             }
             else if(amuletAverageStat>level+10 && amuletAverageStat<=level+17){
                 amulet.setItemName("Amulet");
+                amulet.setGoldValue((Math.round((float)amuletAverageStat/3)*level));
             }
             else if(amuletAverageStat>level+17 && amuletAverageStat<=level+23){
                 amulet.setItemName("Fine Amulet");
+                amulet.setGoldValue((Math.round((float)amuletAverageStat/2)*level));
             }
             else{
                 amulet.setItemName("Excellent Amulet");
+                amulet.setGoldValue(amuletAverageStat*level);
             }
         }
         return amulet;

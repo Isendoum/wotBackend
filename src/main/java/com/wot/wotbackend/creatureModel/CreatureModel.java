@@ -33,6 +33,7 @@ public abstract class CreatureModel {
     private int level;
     private int exp;
     private String name;
+    private int gold;
     private CreatureClan creatureClan;
     private CreatureType creatureType;
     private List<Item> items;
