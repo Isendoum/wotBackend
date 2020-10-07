@@ -106,7 +106,7 @@ public class MongoDBConfig {
             Shop shop= new Shop(10);
             shop.setLatitude(latitude);
             shop.setLongitude(longitude);
-         // worldStructureRepository.save(new WorldStructure (shop));
+          worldStructureRepository.save(new WorldStructure(portal));
 
         };
 

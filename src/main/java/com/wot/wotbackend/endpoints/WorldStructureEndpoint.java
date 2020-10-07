@@ -3,12 +3,14 @@ package com.wot.wotbackend.endpoints;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.documents.Player;
 import com.wot.wotbackend.documents.WorldStructure;
+import com.wot.wotbackend.helperClasses.WrapperShopBuyObj;
+import com.wot.wotbackend.helperClasses.WrapperShopSellObj;
 import com.wot.wotbackend.repositories.PlayerRepository;
 import com.wot.wotbackend.repositories.WorldStructureRepository;
 import com.wot.wotbackend.services.location.DistanceCalculator;
 import com.wot.wotbackend.worldStructures.portal.Portal;
+import com.wot.wotbackend.worldStructures.portal.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -93,5 +95,51 @@ public class WorldStructureEndpoint {
         //System.out.println(nearbyWorldStructures.toString());
 
         return nearbyCreatures;
+    }
+
+    @PostMapping(value="/shop/buy",consumes = "application/json")
+    @ResponseBody
+    public Player buyItemFromShop(@RequestBody WrapperShopBuyObj wrapperShopBuyObj){
+        System.out.println("Inside request");
+        worldStructureRepository.findById(wrapperShopBuyObj.getShopId()).ifPresent(shop-> {
+            System.out.println("shop found");
+            Shop shopAsked =(Shop) shop.getStructureModel();
+            shopAsked.getShopList().forEach(item -> {if(item.getId().equals(wrapperShopBuyObj.getItemId())){
+                System.out.println("item found with id: " +item.getId());
+                playerRepository.findById(wrapperShopBuyObj.getPlayer().getId()).ifPresent(player->{
+                    System.out.println("Player found");
+                    int itemWorth= item.getGoldValue();
+                    int playerGold= player.getPlayerCharacterList().get(0).getGold();
+                    if(itemWorth<=playerGold){
+                        System.out.println("item bought");
+                        player.getPlayerCharacterList().get(0).addItemToInventory(item);
+                        player.getPlayerCharacterList().get(0).setGold(playerGold-itemWorth);
+                        playerRepository.save(player);
+                    }
+                });
+            }
+            });
+        });
+        Player player= playerRepository.findById(wrapperShopBuyObj.getPlayer().getId()).get();
+        return player;
+
+
+    }
+
+    @PostMapping("/shop/sell")
+    @ResponseBody
+    public Player sellItemToShop(@RequestBody WrapperShopSellObj wrapperShopSellObj){
+
+        playerRepository.findById(wrapperShopSellObj.getPlayer().getId()).ifPresent(player -> {
+            player.getPlayerCharacterList().get(0).removeItemFromInventoryById(wrapperShopSellObj.getItem().getId());
+            int playerGold=player.getPlayerCharacterList().get(0).getGold();
+            int itemGold= wrapperShopSellObj.getItem().getGoldValue();
+            player.getPlayerCharacterList().get(0).setGold(playerGold+itemGold);
+            playerRepository.save(player);
+        });
+
+        Player player= playerRepository.findById(wrapperShopSellObj.getPlayer().getId()).get();
+        return player;
+
     }
 }

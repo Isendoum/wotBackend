@@ -26,7 +26,7 @@ public class Creature extends CreatureModel {
         this.setCreatureType(creatureType);
         this.setCreatureClan(creatureClan);
         this.setName(name);
-        this.setGold(300);
+        this.setGold(100);
         initAll();
         this.setItems(new ArrayList<>());
         this.setCreatureSkills(new ArrayList<>());
