@@ -11,13 +11,16 @@ import com.wot.wotbackend.characterModel.characterSkill.WildSwing;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.creatureModel.creatureClan.Lemesur;
 import com.wot.wotbackend.creatureModel.types.Undead;
+import com.wot.wotbackend.documents.ERole;
 import com.wot.wotbackend.documents.Player;
+import com.wot.wotbackend.documents.Role;
 import com.wot.wotbackend.documents.WorldStructure;
 import com.wot.wotbackend.itemModel.Item;
 import com.wot.wotbackend.itemModel.Items.Potion;
 import com.wot.wotbackend.repositories.PlayerRepository;
 
 
+import com.wot.wotbackend.repositories.RoleRepository;
 import com.wot.wotbackend.repositories.WorldStructureRepository;
 import com.wot.wotbackend.services.location.LocationModel;
 import com.wot.wotbackend.services.location.RandomLocation;
@@ -51,6 +54,8 @@ public class MongoDBConfig {
 
     @Autowired
     RandomLocation randomLocation;
+    @Autowired
+    RoleRepository roleRepository;
 
     @Bean
     CommandLineRunner commandLineRunner(){
@@ -76,19 +81,23 @@ public class MongoDBConfig {
 
         portal.setCreatureList(creatureList);
         return strings->{
-            Player player = new Player("CptIsendoum",new Character("Isendoum", HumanRace.getInstance()));
-            player.getPlayerCharacterList().get(0).addItemToInventory(new Potion());
+            /*Player player = new Player("CptIsendoum","test",new Character("Isendoum", HumanRace.getInstance()));
+            player.getPlayerCharacter().addItemToInventory(new Potion());
             player.setLatitude(latitude);
             player.setLongitude(longitude);
-            player.getPlayerCharacterList().get(0).getCharacterSkills().add(MeleeAttack.getInstance());
-            player.getPlayerCharacterList().get(0).getCharacterSkills().add(MagicAttack.getInstance());
-            player.getPlayerCharacterList().get(0).getCharacterSkills().add(WildSwing.getInstance());
-            player.getPlayerCharacterList().get(0).getCharacterSkills().add(ArcaneBolt.getInstance());
+            player.getPlayerCharacter().getCharacterSkills().add(MeleeAttack.getInstance());
+            player.getPlayerCharacter().getCharacterSkills().add(MagicAttack.getInstance());
+            player.getPlayerCharacter().getCharacterSkills().add(WildSwing.getInstance());
+            player.getPlayerCharacter().getCharacterSkills().add(ArcaneBolt.getInstance());
 
-            //playerRepository.save(player);
+            playerRepository.save(player);
             Item item = new Potion();
             System.out.println(item.getItemName());
-            item.increaseQuantity();
+            item.increaseQuantity();*/
+            Role role= new Role();
+            role.setName(ERole.ROLE_USER);
+            roleRepository.insert(role);
+
 
             /*playerRepository.findById("5f73b1412d346c7c49bc626e").ifPresent(x->
                     {
@@ -103,10 +112,10 @@ public class MongoDBConfig {
                     playerRepository.save(x);
                     }
             );*/
-            Shop shop= new Shop(10);
-            shop.setLatitude(latitude);
-            shop.setLongitude(longitude);
-          worldStructureRepository.save(new WorldStructure(portal));
+            //Shop shop= new Shop(10);
+            //shop.setLatitude(latitude);
+            //shop.setLongitude(longitude);
+          //worldStructureRepository.save(new WorldStructure(portal));
 
         };
 

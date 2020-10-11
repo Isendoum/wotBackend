@@ -11,12 +11,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-import java.util.ArrayList;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Document
 @Data
@@ -24,22 +29,39 @@ import java.util.List;
 @AllArgsConstructor
 @JsonSerialize
 @JsonDeserialize
+
 public class Player {
 
 
     @Id
     private String id;
-    private String name;
+
+    @NotBlank
+    @Size(max = 20)
+    private String username;
+
+    @NotBlank
+    @Size(max = 120)
+    private String password;
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String email;
+
+    @DBRef
+    private Set<Role> roles = new HashSet<>();
     private Double latitude;
     private Double longitude;
     private Date lastDate;
-    private List<Character> playerCharacterList= new ArrayList<>();
+    private Character playerCharacter;
 
 
-    public Player(String playerName,Character character){
-        this.name=playerName;
+    public Player(String username,String password,String email){
+        this.username =username;
         this.lastDate=new Date();
-        this.playerCharacterList.add(character);
+        this.email=email;
+        this.password = password;
     }
 
 }

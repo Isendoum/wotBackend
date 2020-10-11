@@ -15,9 +15,10 @@ public class Shop extends StructureModel {
     public Shop(int level){
         this.setStructureType("Shop");
         this.level= level;
-
         this.shopList= new ArrayList<>();
+    }
 
+    private void addItemsToShop(){
         for (int i = 1; i < 10 ; i++) {
             shopList.add(Item.createRandomItem(this.level));
         }

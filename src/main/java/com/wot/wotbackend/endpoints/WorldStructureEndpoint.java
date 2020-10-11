@@ -51,13 +51,13 @@ public class WorldStructureEndpoint {
             latitude.set(player1.getLatitude());
             longitude.set(player1.getLongitude());
         } );
-        //System.out.println(latitude.toString()+" "+ longitude.toString());
+
         worldStructureRepository.findAll().forEach(worldStructure -> {
             if(distanceCalculator.distance(latitude.get(),longitude.get(),worldStructure.getStructureModel().getLatitude(),worldStructure.getStructureModel().getLongitude(),"K")<0.7){
                 nearbyWorldStructures.add(worldStructure);
             }
         });
-        //System.out.println(nearbyWorldStructures.toString());
+
 
         return nearbyWorldStructures;
     }
@@ -109,11 +109,11 @@ public class WorldStructureEndpoint {
                 playerRepository.findById(wrapperShopBuyObj.getPlayer().getId()).ifPresent(player->{
                     System.out.println("Player found");
                     int itemWorth= item.getGoldValue();
-                    int playerGold= player.getPlayerCharacterList().get(0).getGold();
+                    int playerGold= player.getPlayerCharacter().getGold();
                     if(itemWorth<=playerGold){
                         System.out.println("item bought");
-                        player.getPlayerCharacterList().get(0).addItemToInventory(item);
-                        player.getPlayerCharacterList().get(0).setGold(playerGold-itemWorth);
+                        player.getPlayerCharacter().addItemToInventory(item);
+                        player.getPlayerCharacter().setGold(playerGold-itemWorth);
                         playerRepository.save(player);
                     }
                 });
@@ -131,10 +131,10 @@ public class WorldStructureEndpoint {
     public Player sellItemToShop(@RequestBody WrapperShopSellObj wrapperShopSellObj){
 
         playerRepository.findById(wrapperShopSellObj.getPlayer().getId()).ifPresent(player -> {
-            player.getPlayerCharacterList().get(0).removeItemFromInventoryById(wrapperShopSellObj.getItem().getId());
-            int playerGold=player.getPlayerCharacterList().get(0).getGold();
+            player.getPlayerCharacter().removeItemFromInventoryById(wrapperShopSellObj.getItem().getId());
+            int playerGold=player.getPlayerCharacter().getGold();
             int itemGold= wrapperShopSellObj.getItem().getGoldValue();
-            player.getPlayerCharacterList().get(0).setGold(playerGold+itemGold);
+            player.getPlayerCharacter().setGold(playerGold+itemGold);
             playerRepository.save(player);
         });
 

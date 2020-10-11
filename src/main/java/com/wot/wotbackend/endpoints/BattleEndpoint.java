@@ -1,8 +1,6 @@
 package com.wot.wotbackend.endpoints;
 
 import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
-import com.wot.wotbackend.creatureModel.Creature;
-import com.wot.wotbackend.creatureModel.CreatureModel;
 import com.wot.wotbackend.documents.Battle;
 import com.wot.wotbackend.documents.Player;
 import com.wot.wotbackend.helperClasses.WrapperBattleObj;
@@ -11,12 +9,10 @@ import com.wot.wotbackend.repositories.BattleRepository;
 import com.wot.wotbackend.repositories.PlayerRepository;
 import com.wot.wotbackend.services.location.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
+
+
 import java.util.Optional;
 
 @RestController
@@ -39,13 +35,13 @@ public class BattleEndpoint {
         System.out.println("--------\nCreature id: "+wrapperBattleObj.getCreature().getId()+"\nLatitude: "+wrapperBattleObj.getPlayer().getLatitude()+" Longitude: "+wrapperBattleObj.getPlayer().getLongitude() +
                 "\nLatitude: "+ wrapperBattleObj.getCreature().getLatitude()+" Longitude"+wrapperBattleObj.getCreature().getLongitude());
         System.out.println(distanceCalculator.distance(wrapperBattleObj.getPlayer().getLatitude(),wrapperBattleObj.getPlayer().getLongitude(),wrapperBattleObj.getCreature().getLatitude(),wrapperBattleObj.getCreature().getLongitude(),"K"));
-        if(distanceCalculator.distance(wrapperBattleObj.getPlayer().getLatitude(),wrapperBattleObj.getPlayer().getLongitude(),wrapperBattleObj.getCreature().getLatitude(),wrapperBattleObj.getCreature().getLongitude(),"K")<=0.15 && wrapperBattleObj.getPlayer().getPlayerCharacterList().get(0).getCurrentHp()>0){
+        if(distanceCalculator.distance(wrapperBattleObj.getPlayer().getLatitude(),wrapperBattleObj.getPlayer().getLongitude(),wrapperBattleObj.getCreature().getLatitude(),wrapperBattleObj.getCreature().getLongitude(),"K")<=0.15 && wrapperBattleObj.getPlayer().getPlayerCharacter().getCurrentHp()>0){
             Player player = playerRepository.findById(wrapperBattleObj.getPlayer().getId()).get();
 
             //sets creature level based on character level
-            wrapperBattleObj.getCreature().setLevel(wrapperBattleObj.getPlayer().getPlayerCharacterList().get(0).getLevel());
+            wrapperBattleObj.getCreature().setLevel(wrapperBattleObj.getPlayer().getPlayerCharacter().getLevel());
             //create random item and assign it to creature item list
-            Item itemToAdd= Item.createRandomItem(wrapperBattleObj.getPlayer().getPlayerCharacterList().get(0).getLevel());
+            Item itemToAdd= Item.createRandomItem(wrapperBattleObj.getPlayer().getPlayerCharacter().getLevel());
             System.out.println("Created item level: " + itemToAdd.getLevelRequired());
             wrapperBattleObj.getCreature().getItems().add(itemToAdd);
             wrapperBattleObj.getCreature().recalculateStats();
@@ -94,11 +90,11 @@ public class BattleEndpoint {
 
             Optional<Battle> battle = battleRepository.findById(id);
             battle.get().creatureAttack();
-            if(battle.get().getPlayer().getPlayerCharacterList().get(0).getCurrentHp()>0){
+            if(battle.get().getPlayer().getPlayerCharacter().getCurrentHp()>0){
                 battleRepository.save(battle.get());
                 return battleRepository.findById(id).get();
             }else{
-                battle.get().getPlayer().getPlayerCharacterList().get(0).setCurrentHp(0);
+                battle.get().getPlayer().getPlayerCharacter().setCurrentHp(0);
                 playerRepository.save(battle.get().getPlayer());
                 battleRepository.deleteById(id);
                 return battle.get();
@@ -123,13 +119,13 @@ public class BattleEndpoint {
                 }
                 else{
                     battle.get().getCreature().setHp(0);
-                    long playerCurrentExp = battle.get().getPlayer().getPlayerCharacterList().get(0).getExp();
-                    int playerGold= battle.get().getPlayer().getPlayerCharacterList().get(0).getGold();
+                    long playerCurrentExp = battle.get().getPlayer().getPlayerCharacter().getExp();
+                    int playerGold= battle.get().getPlayer().getPlayerCharacter().getGold();
                     int creatureExp = battle.get().getCreature().getExp();
                     int creatureGold= battle.get().getCreature().getGold();
-                    battle.get().getPlayer().getPlayerCharacterList().get(0).setExp(playerCurrentExp+creatureExp);
-                    battle.get().getPlayer().getPlayerCharacterList().get(0).setGold(playerGold+creatureGold);
-                    battle.get().getPlayer().getPlayerCharacterList().get(0).checkForLevelUp();
+                    battle.get().getPlayer().getPlayerCharacter().setExp(playerCurrentExp+creatureExp);
+                    battle.get().getPlayer().getPlayerCharacter().setGold(playerGold+creatureGold);
+                    battle.get().getPlayer().getPlayerCharacter().checkForLevelUp();
 
                     playerRepository.save(battle.get().getPlayer());
                     battleRepository.deleteById(id);

@@ -48,9 +48,8 @@ public class Item   {
 
     }
 
-
     public static Item createRandomItem(int level){
-
+        System.out.println("The shit happens here"+level);
 
         String itemType= ItemType.getRandomItemType().toString();
 
