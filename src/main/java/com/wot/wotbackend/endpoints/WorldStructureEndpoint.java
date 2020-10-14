@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
-@RequestMapping("rest/worldStructure")
+@RequestMapping("/rest/worldStructure")
 public class WorldStructureEndpoint {
 
     @Autowired

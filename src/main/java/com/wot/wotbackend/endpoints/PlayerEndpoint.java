@@ -67,16 +67,21 @@ public class PlayerEndpoint {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        PlayerDetailsImpl userDetails = (PlayerDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
+        PlayerDetailsImpl playerDetails = (PlayerDetailsImpl) authentication.getPrincipal();
+        List<String> roles = playerDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
+        playerRepository.findByUsername(loginRequest.getUsername()).ifPresent(player -> {player.setLatitude(loginRequest.getLatitude());player.setLongitude(loginRequest.getLongitude());
+        playerRepository.save(player);
+        });
 
         return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                userDetails.getCharacter(),
+                playerDetails.getId(),
+                playerDetails.getUsername(),
+                playerDetails.getEmail(),
+                playerDetails.getLatitude(),
+                playerDetails.getLongitude(),
+                playerDetails.getPlayerCharacter(),
                 roles));
     }
 

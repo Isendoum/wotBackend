@@ -2,8 +2,10 @@ package com.wot.wotbackend.itemModel;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import com.wot.wotbackend.itemModel.ConsumableModel.ConsumableType;
+import com.wot.wotbackend.itemModel.ConsumableModel.IpPotion;
 import com.wot.wotbackend.itemModel.GearModels.*;
-import com.wot.wotbackend.itemModel.Items.Potion;
+import com.wot.wotbackend.itemModel.ConsumableModel.Potion;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -48,10 +50,10 @@ public class Item   {
 
     }
 
-    public static Item createRandomItem(int level){
-        System.out.println("The shit happens here"+level);
+    public static Item createRandomItem(int level) {
 
-        String itemType= ItemType.getRandomItemType().toString();
+
+        String itemType = ItemType.getRandomItemType().toString();
 
         switch (itemType) {
             case "WEAPON": {
@@ -94,14 +96,17 @@ public class Item   {
                 return new Ring().createRandomRing(level);
             }
             default:
-                Potion potion = new Potion();
-                potion.increaseQuantity();
-
-                return potion;
+                String consumableType = ConsumableType.getRandomConsumableType().toString();
+                if(consumableType.equals("POTION")){
+                    return new Potion();
+                }else{
+                    return new IpPotion();
+                }
         }
-
-
     }
+
+
+
 
     public int randomWithRange(int min, int max)
     {

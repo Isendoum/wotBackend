@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("rest/battle")
+@RequestMapping("/rest/battle")
 @CrossOrigin("*")
 public class BattleEndpoint {
 
@@ -112,6 +112,7 @@ public class BattleEndpoint {
         System.out.println("Player used"+skill.getCharacterSkillName());
             if(battleRepository.findById(id).isPresent()) {
                 Optional<Battle> battle = battleRepository.findById(id);
+
                 battle.get().playerAttackMove(skill);
                 if(battle.get().getCreature().getHp()>0){
                     battleRepository.save(battle.get());

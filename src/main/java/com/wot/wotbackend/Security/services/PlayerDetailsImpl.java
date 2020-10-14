@@ -31,8 +31,11 @@ public class PlayerDetailsImpl implements UserDetails {
     @JsonIgnore
     private String password;
 
-    private Character character;
+    private Double latitude;
 
+    private Double longitude;
+
+    private Character playerCharacter;
 
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -48,6 +51,8 @@ public class PlayerDetailsImpl implements UserDetails {
                 player.getUsername(),
                 player.getEmail(),
                 player.getPassword(),
+                player.getLatitude(),
+                player.getLongitude(),
                 player.getPlayerCharacter(),
                 authorities);
     }
@@ -55,14 +60,6 @@ public class PlayerDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override

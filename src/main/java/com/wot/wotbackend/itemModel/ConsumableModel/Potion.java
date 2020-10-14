@@ -1,4 +1,4 @@
-package com.wot.wotbackend.itemModel.Items;
+package com.wot.wotbackend.itemModel.ConsumableModel;
 
 
 

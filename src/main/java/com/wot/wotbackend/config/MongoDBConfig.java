@@ -2,21 +2,9 @@ package com.wot.wotbackend.config;
 
 
 
-import com.wot.wotbackend.characterModel.Character;
-import com.wot.wotbackend.characterModel.characterRace.HumanRace;
-import com.wot.wotbackend.characterModel.characterSkill.ArcaneBolt;
-import com.wot.wotbackend.characterModel.characterSkill.MagicAttack;
-import com.wot.wotbackend.characterModel.characterSkill.MeleeAttack;
-import com.wot.wotbackend.characterModel.characterSkill.WildSwing;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.creatureModel.creatureClan.Lemesur;
 import com.wot.wotbackend.creatureModel.types.Undead;
-import com.wot.wotbackend.documents.ERole;
-import com.wot.wotbackend.documents.Player;
-import com.wot.wotbackend.documents.Role;
-import com.wot.wotbackend.documents.WorldStructure;
-import com.wot.wotbackend.itemModel.Item;
-import com.wot.wotbackend.itemModel.Items.Potion;
 import com.wot.wotbackend.repositories.PlayerRepository;
 
 
@@ -25,7 +13,6 @@ import com.wot.wotbackend.repositories.WorldStructureRepository;
 import com.wot.wotbackend.services.location.LocationModel;
 import com.wot.wotbackend.services.location.RandomLocation;
 import com.wot.wotbackend.worldStructures.portal.Portal;
-import com.wot.wotbackend.worldStructures.portal.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.CommandLineRunner;
@@ -94,28 +81,27 @@ public class MongoDBConfig {
             Item item = new Potion();
             System.out.println(item.getItemName());
             item.increaseQuantity();*/
-            Role role= new Role();
-            role.setName(ERole.ROLE_USER);
-            roleRepository.insert(role);
 
 
-            /*playerRepository.findById("5f73b1412d346c7c49bc626e").ifPresent(x->
+
+            /*playerRepository.findById("5f858e73beb3d35546a70ecb").ifPresent(player->
                     {
 
 
+                        player.getPlayerCharacter().getCharacterSkills().add(MeleeAttack.getInstance());
+                        player.getPlayerCharacter().getCharacterSkills().add(MagicAttack.getInstance());
+                        player.getPlayerCharacter().getCharacterSkills().add(WildSwing.getInstance());
+                        player.getPlayerCharacter().getCharacterSkills().add(ArcaneBolt.getInstance());
 
 
-                        for (int i = 0; i < 5 ; i++) {
-                            x.getPlayerCharacterList().get(0).addItemToInventory(item);
-                        }
-
-                    playerRepository.save(x);
+                    playerRepository.save(player);
                     }
             );*/
-            //Shop shop= new Shop(10);
+           // Shop shop= new Shop(10);
             //shop.setLatitude(latitude);
             //shop.setLongitude(longitude);
-          //worldStructureRepository.save(new WorldStructure(portal));
+            //shop.addItemsToShop();
+         // worldStructureRepository.save(new WorldStructure(portal));
 
         };
 

@@ -21,15 +21,19 @@ public class JwtResponse {
     private String id;
     private String username;
     private String email;
+    private Double latitude;
+    private Double longitude;
     private Character character;
     private List<String> roles;
 
-    public JwtResponse(String accessToken, String id, String username, String email, Character character, List<String> roles) {
+    public JwtResponse(String accessToken, String id, String username, String email,Double latitude,Double longitude, Character character, List<String> roles) {
         this.token = accessToken;
         this.id = id;
         this.username = username;
         this.email = email;
         this.character=character;
+        this.latitude=latitude;
+        this.longitude=longitude;
         this.roles = roles;
     }
 }

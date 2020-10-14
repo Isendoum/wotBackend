@@ -2,14 +2,10 @@ package com.wot.wotbackend.characterModel;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import com.wot.wotbackend.characterModel.characterClass.CharacterMainClass;
 import com.wot.wotbackend.characterModel.characterRace.CharacterRace;
 import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
-import com.wot.wotbackend.itemModel.Abilities.HealHp;
 import com.wot.wotbackend.itemModel.Gear;
-import com.wot.wotbackend.itemModel.GearModels.*;
 import com.wot.wotbackend.itemModel.Item;
-import com.wot.wotbackend.itemModel.Items.Potion;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -58,6 +54,8 @@ public abstract class CharacterModel {
     }
 
     public void increaseCurrentHp(float hp){this.currentHp=this.currentHp+hp;}
+
+    public void increaseCurrentInnerPower(float ip){this.currentInnerPower= (int) (this.currentInnerPower+ip);}
 
     public void reduceCurrentInnerPower(int innerPowerConsumed){
         this.currentInnerPower=this.currentInnerPower-innerPowerConsumed;
@@ -134,7 +132,7 @@ public abstract class CharacterModel {
         }
     }
 
-    //Adds an item object to inventory
+
 
     //initialize base Defence value from character race
     public void initDefence() {
@@ -250,6 +248,7 @@ public abstract class CharacterModel {
         this.initMagicDefence();
         this.initSpeed();
     }
+
     //recalculates character stats generally
     public void recalculateStats(){
         this.initMaxHp();
@@ -356,6 +355,29 @@ public abstract class CharacterModel {
                         }else{
                             this.getInventory().get(i).decreaseQuantity();
                             this.increaseCurrentHp(hpToHeal);
+                            if(this.getInventory().get(i).getQuantity()==0){
+                                this.removeItemFromInventoryById(this.getInventory().get(i).getId());
+                            }
+                            break;
+
+                        }
+                    } else if(this.getInventory().get(i).getItemName().equals("Ip Potion")){
+
+                        int ipToRestore=Math.round(this.getMaxInnerPower()*(this.getInventory().get(i).getItemAbility().getAbilityModifier()/100));
+
+                        if(this.getCurrentInnerPower()==this.getMaxInnerPower()){
+                            break;
+                        }else if(this.getCurrentInnerPower()+ipToRestore>=this.getMaxInnerPower()){
+                            this.setCurrentInnerPower(this.getMaxInnerPower());
+                            this.getInventory().get(i).decreaseQuantity();
+                            if(this.getInventory().get(i).getQuantity()==0){
+                                this.removeItemFromInventoryById(this.getInventory().get(i).getId());
+                            }
+                            break;
+
+                        }else{
+                            this.getInventory().get(i).decreaseQuantity();
+                            this.increaseCurrentInnerPower(ipToRestore);
                             if(this.getInventory().get(i).getQuantity()==0){
                                 this.removeItemFromInventoryById(this.getInventory().get(i).getId());
                             }

@@ -1,7 +1,6 @@
 package com.wot.wotbackend.worldStructures.portal;
 
 import com.wot.wotbackend.itemModel.Item;
-import com.wot.wotbackend.itemModel.ItemType;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -16,9 +15,10 @@ public class Shop extends StructureModel {
         this.setStructureType("Shop");
         this.level= level;
         this.shopList= new ArrayList<>();
+
     }
 
-    private void addItemsToShop(){
+    public void addItemsToShop(){
         for (int i = 1; i < 10 ; i++) {
             shopList.add(Item.createRandomItem(this.level));
         }

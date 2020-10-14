@@ -3,9 +3,15 @@ package com.wot.wotbackend.documents;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wot.wotbackend.characterModel.Character;
+import com.wot.wotbackend.characterModel.characterRace.HumanRace;
+import com.wot.wotbackend.characterModel.characterSkill.ArcaneBolt;
+import com.wot.wotbackend.characterModel.characterSkill.MagicAttack;
+import com.wot.wotbackend.characterModel.characterSkill.MeleeAttack;
+import com.wot.wotbackend.characterModel.characterSkill.WildSwing;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,6 +48,7 @@ public class Player {
 
     @NotBlank
     @Size(max = 120)
+    @JsonIgnore
     private String password;
 
     @NotBlank
@@ -62,6 +69,11 @@ public class Player {
         this.lastDate=new Date();
         this.email=email;
         this.password = password;
+        this.playerCharacter= new Character(username, HumanRace.getInstance());
+        this.playerCharacter.getCharacterSkills().add(MeleeAttack.getInstance());
+        this.playerCharacter.getCharacterSkills().add(MagicAttack.getInstance());
+        this.playerCharacter.getCharacterSkills().add(WildSwing.getInstance());
+        this.playerCharacter.getCharacterSkills().add(ArcaneBolt.getInstance());
     }
 
 }

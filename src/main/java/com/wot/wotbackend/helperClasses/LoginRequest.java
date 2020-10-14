@@ -16,5 +16,7 @@ public class LoginRequest {
 
     String username;
     String password;
+    Double latitude;
+    Double longitude;
 
 }

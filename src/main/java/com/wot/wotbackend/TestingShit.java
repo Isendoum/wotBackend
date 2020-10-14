@@ -15,7 +15,11 @@ public class TestingShit {
             System.out.println("Exp needed for level: "+i+" "+exp.longValue());
 
         }*/
-
+        int fn;
+        int attack=400;
+        int defence=150;
+        fn= (int) (attack/Math.log(defence));
+        System.out.println(fn);
 
     }
 }
