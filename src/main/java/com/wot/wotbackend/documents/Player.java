@@ -12,6 +12,7 @@ import com.wot.wotbackend.characterModel.characterSkill.ArcaneBolt;
 import com.wot.wotbackend.characterModel.characterSkill.MagicAttack;
 import com.wot.wotbackend.characterModel.characterSkill.MeleeAttack;
 import com.wot.wotbackend.characterModel.characterSkill.WildSwing;
+import com.wot.wotbackend.helperClasses.playerClasses.Career;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -62,6 +63,7 @@ public class Player {
     private Double longitude;
     private Date lastDate;
     private Character playerCharacter;
+    private Career career;
 
 
     public Player(String username,String password,String email){
@@ -69,6 +71,7 @@ public class Player {
         this.lastDate=new Date();
         this.email=email;
         this.password = password;
+        this.career= new Career();
         this.playerCharacter= new Character(username, HumanRace.getInstance());
         this.playerCharacter.getCharacterSkills().add(MeleeAttack.getInstance());
         this.playerCharacter.getCharacterSkills().add(MagicAttack.getInstance());

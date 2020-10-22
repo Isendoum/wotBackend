@@ -1,4 +1,4 @@
-package com.wot.wotbackend.helperClasses;
+package com.wot.wotbackend.helperClasses.payloads.shopPayloads;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.documents.Player;

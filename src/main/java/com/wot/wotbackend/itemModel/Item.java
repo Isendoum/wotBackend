@@ -36,6 +36,7 @@ public class Item   {
 
 
 
+    //increases item quantity
     public void increaseQuantity(){
         if(this.getQuantity()<99){
             this.setQuantity(this.getQuantity()+1);
@@ -43,6 +44,7 @@ public class Item   {
 
     }
 
+    //decreases item quantity
     public void decreaseQuantity(){
         if(this.getQuantity()>0){
             this.setQuantity(this.getQuantity()-1);
@@ -50,6 +52,7 @@ public class Item   {
 
     }
 
+    //creates a random item based on level
     public static Item createRandomItem(int level) {
 
 
@@ -105,9 +108,7 @@ public class Item   {
         }
     }
 
-
-
-
+    //returns a random number from min to max
     public int randomWithRange(int min, int max)
     {
         int range = (max - min) + 1;

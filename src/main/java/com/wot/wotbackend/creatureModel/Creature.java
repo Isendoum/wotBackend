@@ -21,12 +21,24 @@ public class Creature extends CreatureModel {
 
 
 
-    public Creature(String name, CreatureType creatureType, CreatureClan creatureClan) {
+    public Creature(String name, CreatureType creatureType, CreatureClan creatureClan,boolean isBoss) {
+        this.setBoss(isBoss);
         this.setLevel(1);
         this.setCreatureType(creatureType);
         this.setCreatureClan(creatureClan);
         this.setName(name);
         this.setGold(100);
+        initAll();
+        this.setItems(new ArrayList<>());
+        this.setCreatureSkills(new ArrayList<>());
+    }
+    public Creature(String name, CreatureType creatureType, CreatureClan creatureClan,boolean isBoss,int level) {
+        this.setBoss(isBoss);
+        this.setLevel(level);
+        this.setCreatureType(creatureType);
+        this.setCreatureClan(creatureClan);
+        this.setName(name);
+        this.setGold(Math.round(100*((float)level/10)));
         initAll();
         this.setItems(new ArrayList<>());
         this.setCreatureSkills(new ArrayList<>());

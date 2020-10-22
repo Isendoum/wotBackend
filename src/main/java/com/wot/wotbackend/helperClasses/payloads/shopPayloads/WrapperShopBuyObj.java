@@ -1,9 +1,9 @@
-package com.wot.wotbackend.helperClasses;
-
+package com.wot.wotbackend.helperClasses.payloads.shopPayloads;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.documents.Player;
+import com.wot.wotbackend.itemModel.Item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonDeserialize
-public class WrapperBattleObj {
+public class WrapperShopBuyObj {
 
     private Player player;
-    private Creature creature;
+    private String shopId;
+    private String itemId;
 
 
 }

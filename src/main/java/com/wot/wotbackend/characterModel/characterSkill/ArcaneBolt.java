@@ -14,7 +14,7 @@ public class ArcaneBolt extends CharacterSkill {
         this.setCharacterSkillType("Magic Attack");
         this.setSkillLevel(1);
         this.setSkillMaxLevel(5);
-        this.setInnerPowerConsume(50);
+        this.setInnerPowerConsume(10);
         this.setSkillRank("C");
 
     }

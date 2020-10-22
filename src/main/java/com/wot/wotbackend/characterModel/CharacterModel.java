@@ -2,10 +2,12 @@ package com.wot.wotbackend.characterModel;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wot.wotbackend.characterModel.characterRace.CharacterRace;
 import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
 import com.wot.wotbackend.itemModel.Gear;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.questModel.Quest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @JsonDeserialize
+@JsonSerialize
 /*CharacterModel abstract class is used as the blueprint for creating new Player characters*/
 public abstract class CharacterModel {
     private String name;
@@ -27,6 +30,7 @@ public abstract class CharacterModel {
     private float speed;
     private int level;
     private long exp;
+    private long expRequired;
     private int maxInnerPower;
     private int currentInnerPower;
     private int talentPoints;
@@ -40,28 +44,48 @@ public abstract class CharacterModel {
     private CharacterSkill skill4;
     private CharacterRace characterRace;
     private int gold;
+    private List<Quest> questList= new ArrayList<>();
     private List<Item> inventory = new ArrayList<>();
 
 
-
-
+    //initializes new empty gear
     public void initGear(){
         this.gear= new Gear();
     }
 
+    //reduces current character hp
     public void reduceCurrentHp(float hp){
         this.currentHp=this.currentHp-hp;
     }
 
-    public void increaseCurrentHp(float hp){this.currentHp=this.currentHp+hp;}
+    //increases current character hp
+    public void increaseCurrentHp(float hp){
+        if(this.currentHp<this.maxHp) {
+            if((this.currentHp+hp)>=this.maxHp){
+                this.currentHp=this.maxHp;
+            }else{
+            this.currentHp = this.currentHp + hp;
+            }
+        }
+    }
 
-    public void increaseCurrentInnerPower(float ip){this.currentInnerPower= (int) (this.currentInnerPower+ip);}
+    //increases current character inner power(mana like stat)
+    public void increaseCurrentInnerPower(float ip){
+        if(this.currentInnerPower<this.maxInnerPower){
+            if((this.currentInnerPower+ip)>=this.maxInnerPower){
+                this.currentInnerPower= this.maxInnerPower;
+            }else {
+                this.currentInnerPower = (int) (this.currentInnerPower + ip);
+            }
+        }
+    }
 
+    //reduces current character inner power(mana like stat)
     public void reduceCurrentInnerPower(int innerPowerConsumed){
         this.currentInnerPower=this.currentInnerPower-innerPowerConsumed;
     }
 
-    //initialize base Hp from character race
+    //initialize base Hp from character race and gear
     public void initMaxHpAndCurrentHp(){
         if(this.characterRace!=null){
             this.maxHp = this.characterRace.getHp()+Math.round(this.characterRace.getHp()*((float)this.level/3));
@@ -132,9 +156,7 @@ public abstract class CharacterModel {
         }
     }
 
-
-
-    //initialize base Defence value from character race
+    //initialize base Defence value from character race and gear
     public void initDefence() {
 
         if(this.characterRace!=null){
@@ -156,7 +178,7 @@ public abstract class CharacterModel {
         }
     }
 
-    //initialize base Attack value from character race
+    //initialize base Attack value from character race and gear
     public void initAttack() {
 
         if(this.characterRace!=null){
@@ -179,7 +201,7 @@ public abstract class CharacterModel {
 
     }
 
-    //initialize base Magic Attack value from character race
+    //initialize base Magic Attack value from character race and gear
     public void initMagicAttack() {
 
         if(this.characterRace!=null){
@@ -199,7 +221,7 @@ public abstract class CharacterModel {
         }
     }
 
-    //initialize base Magic Defence value from character race and character class
+    //initialize base Magic Defence value from character race and gear
     public void initMagicDefence() {
 
         if(this.characterRace!=null){
@@ -218,6 +240,7 @@ public abstract class CharacterModel {
         }
     }
 
+    //initialize base Speed value from character race and gear
     public void initSpeed() {
         if(this.characterRace!=null){
             this.speed = Math.round(this.characterRace.getSpeed()+Math.round(this.characterRace.getSpeed()*((float)this.level/3)));
@@ -270,6 +293,7 @@ public abstract class CharacterModel {
     //check if the character should level up, if character is eligible for level up increases level and recalculates character stats
     public void checkForLevelUp(){
         Double expNeeded=100* Math.pow(this.getLevel(),2.5);
+        this.expRequired = Math.round(expNeeded);
         if(this.exp>expNeeded.longValue()){
             this.setLevel(this.getLevel()+1);
             recalculateStatsForLvl();
@@ -277,6 +301,7 @@ public abstract class CharacterModel {
         }
     }
 
+    //adds item to character inventory
     public void addItemToInventory(Item itemToAdd) {
         System.out.println("Item inside add" + itemToAdd);
         switch (itemToAdd.getItemType()) {
@@ -600,6 +625,26 @@ public abstract class CharacterModel {
 
         }
 
+    }
+
+    public void completeQuestById(String id){
+        for (int i = 0; i <  questList.size(); i++) {
+            if(questList.get(i).getId().equals(id)){
+                this.exp = this.exp+questList.get(i).getExp();
+                this.gold = this.gold+questList.get(i).getGold();
+                questList.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void abandonQuestById(String id){
+        for (int i = 0; i <  questList.size(); i++) {
+            if(questList.get(i).getId().equals(id)){
+                questList.remove(i);
+                break;
+            }
+        }
     }
 
 

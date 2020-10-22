@@ -9,18 +9,15 @@ import java.util.List;
 @Data
 public class Shop extends StructureModel {
     private List<Item> shopList;
-    private int level;
 
-    public Shop(int level){
+
+    public Shop(){
         this.setStructureType("Shop");
-        this.level= level;
         this.shopList= new ArrayList<>();
 
     }
 
-    public void addItemsToShop(){
-        for (int i = 1; i < 10 ; i++) {
-            shopList.add(Item.createRandomItem(this.level));
-        }
+    public void addItemsToShop(Item item){
+            shopList.add(item);
     }
 }

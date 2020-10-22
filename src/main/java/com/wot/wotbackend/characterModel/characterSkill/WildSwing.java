@@ -16,7 +16,7 @@ public class WildSwing extends CharacterSkill {
         this.setCharacterSkillModifier(1.5f);
         this.setCharacterSkillType("Melee Attack");
         this.setSkillMaxLevel(5);
-        this.setInnerPowerConsume(50);
+        this.setInnerPowerConsume(10);
         this.setSkillRank("C");
 
     }

@@ -1,4 +1,4 @@
-package com.wot.wotbackend.helperClasses;
+package com.wot.wotbackend.helperClasses.payloads.securityPayloads;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
