@@ -292,11 +292,14 @@ public abstract class CharacterModel {
 
     //check if the character should level up, if character is eligible for level up increases level and recalculates character stats
     public void checkForLevelUp(){
-        Double expNeeded=100* Math.pow(this.getLevel(),2.5);
+        double expNeeded=100* Math.pow(this.getLevel(),2.5);
         this.expRequired = Math.round(expNeeded);
-        if(this.exp>expNeeded.longValue()){
+        if(this.exp>expNeeded){
             this.setLevel(this.getLevel()+1);
+            expNeeded=100* Math.pow(this.getLevel(),2.5);
+            this.expRequired = Math.round(expNeeded);
             recalculateStatsForLvl();
+            checkForLevelUp();
             System.out.println("level up!");
         }
     }

@@ -18,8 +18,8 @@ public class Character extends CharacterModel {
     public Character(String characterName, CharacterRace characterRace){
         this.setName(characterName);
         this.setCharacterRace(characterRace);
-        this.setExpRequired(Math.round(100* Math.pow(this.getLevel(),2.5)));
         this.setLevel(1);
+        this.setExpRequired(Math.round(100* Math.pow(this.getLevel(),2.5)));
         this.statInitializer();
 
     }

@@ -4,6 +4,7 @@ package com.wot.wotbackend.endpoints;
 import com.wot.wotbackend.Security.jwt.JwtUtils;
 import com.wot.wotbackend.Security.services.PlayerDetailsImpl;
 import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
+import com.wot.wotbackend.characterModel.characterSkill.HealingTouch;
 import com.wot.wotbackend.documents.ERole;
 import com.wot.wotbackend.documents.Player;
 
@@ -74,6 +75,7 @@ public class PlayerEndpoint {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
         playerRepository.findByUsername(loginRequest.getUsername()).ifPresent(player -> {player.setLatitude(loginRequest.getLatitude());player.setLongitude(loginRequest.getLongitude());
+
         playerRepository.save(player);
         });
 
@@ -161,12 +163,12 @@ public class PlayerEndpoint {
         System.out.println("Player asked for quest!");
         if(playerRepository.findById(pathVariable).isPresent()){
             Quest quest= new Quest();
-            int random = randomWithRange(0,1);
+            int random = randomWithRange(1,2);
             switch (random){
-                case 0:
+                case 1:
                     quest.generateTravelQuest();
                     break;
-                case 1:
+                case 2:
                     quest.generateKillQuest();
             }
             Player player= playerRepository.findById(pathVariable).get();
@@ -217,9 +219,9 @@ public class PlayerEndpoint {
             Player player= playerRepository.findById(pathVariable).get();
             player.setLatitude(Double.parseDouble(latitude));
             player.setLongitude(Double.parseDouble(longitude));
-            player.getCareer().increaseDistanceTraveled(10);
+            player.getCareer().increaseDistanceTraveled(20);
             player.getPlayerCharacter().getQuestList().forEach(objective->{
-                objective.checkObjectives(10);
+                objective.checkObjectives(20);
                     }
                     );
             player.getPlayerCharacter().increaseCurrentHp(Math.round(player.getPlayerCharacter().getMaxHp()*(0.01)));
@@ -247,7 +249,6 @@ public class PlayerEndpoint {
         });
         return playerRepository.findById(pathVariable).get();
     }
-
 
     @PostMapping("/{pathVariable}/removeItem")
     @ResponseBody

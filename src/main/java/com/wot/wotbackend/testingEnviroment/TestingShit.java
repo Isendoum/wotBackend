@@ -16,13 +16,23 @@ public class TestingShit {
 
         }*/
 
+        for (int i = 0; i < 10; i++) {
+            if(Math.round(Math.log(30)) >= randomWithRange(1,10)){
+                System.out.println("crit");
+            } else{
+                System.out.println("normal dmg");
+            }
+        }
 
-        int test =(Math.round(100*(100f/10)));
 
-        System.out.println(test);
+
 
     }
 
-
+    private static int randomWithRange(int min, int max)
+    {
+        int range = (max - min) + 1;
+        return (int)(Math.random() * range) + min;
+    }
 
 }

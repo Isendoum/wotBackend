@@ -57,6 +57,7 @@ public class Quest {
         this.addItemToRewardList(new Potion());
         this.addObjective(killObjective);
     }
+
     public void generateTravelQuest(){
         TravelObjective travelObjective = new TravelObjective(1000);
         this.setExp(3000);

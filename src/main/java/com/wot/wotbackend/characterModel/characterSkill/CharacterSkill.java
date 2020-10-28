@@ -1,6 +1,7 @@
 package com.wot.wotbackend.characterModel.characterSkill;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.wot.wotbackend.documents.Battle;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,8 @@ import lombok.NoArgsConstructor;
 public class CharacterSkill {
 
     private String characterSkillName;
-    private String characterSkillType;
+    private SkillType characterSkillType;
+    private String skillDescription;
     private float characterSkillModifier;
     private int skillLevel =1;
     private  int skillMaxLevel;
@@ -19,13 +21,16 @@ public class CharacterSkill {
 
 
 
-    public void setCharacterSkillModifier(float characterSkillModifier) {
-        this.characterSkillModifier = characterSkillModifier;
-    }
+
 
     @Override
     public String toString(){
         return characterSkillName+" Power: "+characterSkillModifier+" Type: "+characterSkillType;
+    }
+
+    public Battle returnBattleWithBuffs(Battle battle){
+
+        return battle;
     }
 
 }

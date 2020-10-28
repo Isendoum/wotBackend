@@ -3,11 +3,14 @@ package com.wot.wotbackend.documents;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
+import com.wot.wotbackend.characterModel.characterSkill.SkillType;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.helperClasses.battleClasses.BattleType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -51,33 +54,52 @@ public class Battle {
 
 
     public void playerAttackMove(CharacterSkill skill){
-        String skillType= skill.getCharacterSkillType();
+        SkillType skillType= skill.getCharacterSkillType();
         if((((float)skill.getInnerPowerConsume()/100)*this.player.getPlayerCharacter().getMaxInnerPower())>this.player.getPlayerCharacter().getCurrentInnerPower()){
             this.currentTurn= this.player.getPlayerCharacter().getName();
             this.battleMessage="Not enough ip";
 
 
         }else {
+
             switch (skillType) {
-                case "Melee Attack":
+
+                case ATTACK:
+                case ATTACKSKILL:
                     int playerAttackWithSkillModifier = Math.round(this.player.getPlayerCharacter().getAttack() * skill.getCharacterSkillModifier());
-                    int hitTaken = (int) (2 * Math.round(playerAttackWithSkillModifier / Math.log(this.creature.getDefence())));
-                    System.out.println("Hit damaged for: " + hitTaken);
+                    int hitDone = (int) (2 * Math.round(playerAttackWithSkillModifier / Math.log(this.creature.getDefence())));
+                    if(Math.round(Math.log(this.player.getPlayerCharacter().getSpeed())) >= randomWithRange(1,10)){
+                        hitDone=hitDone*2;
+                        this.battleMessage= "You attack with "+skill.getCharacterSkillName() +" for "+hitDone+" critical damage";
+
+                    }else {
+                        this.battleMessage= "You attack with "+skill.getCharacterSkillName() +" for "+hitDone+" damage";
+                    }
                     this.player.getPlayerCharacter().reduceCurrentInnerPower(Math.round((((float) skill.getInnerPowerConsume()/100)*this.player.getPlayerCharacter().getMaxInnerPower())));
-                    this.creature.setHp(this.creature.getHp() - hitTaken);
+                    this.creature.setHp(this.creature.getHp() - hitDone);
                     this.currentTurn = this.creature.getName();
                     this.turn++;
-                    this.battleMessage= "You attack with "+skill.getCharacterSkillName() +" for "+hitTaken+" damage";
                     break;
-                case "Magic Attack":
+                case MAGICATTACK:
+                case MAGICATTACKSKILL:
                     int playerMagicAttackWithSkillModifier = Math.round(this.player.getPlayerCharacter().getMagicAttack() * skill.getCharacterSkillModifier());
                     int magicHitTaken = (int) (2 *Math.round(playerMagicAttackWithSkillModifier / Math.log(this.creature.getMagicDefence())));
-                    System.out.println("Magic Hit damaged for: " + magicHitTaken);
+                    if(Math.round(Math.log(this.player.getPlayerCharacter().getSpeed())) >= randomWithRange(1,10)){
+                        magicHitTaken=magicHitTaken*2;
+                        this.battleMessage= "You attack with "+skill.getCharacterSkillName() +" for "+magicHitTaken+" critical damage";
+
+                    }else {
+                        this.battleMessage= "You attack with "+skill.getCharacterSkillName() +" for "+magicHitTaken+" damage";
+                    }
                     this.player.getPlayerCharacter().reduceCurrentInnerPower(skill.getInnerPowerConsume());
                     this.creature.setHp(this.creature.getHp() - magicHitTaken);
                     this.currentTurn = this.creature.getName();
                     this.turn++;
-                    this.battleMessage= "You attack with "+skill.getCharacterSkillName() +" for "+magicHitTaken+" damage";
+                    break;
+                case BATTLEBUFF:
+                    battleBuffSkillChecker(skill);
+                    this.currentTurn = this.creature.getName();
+                    this.turn++;
                     break;
             }
         }
@@ -93,4 +115,29 @@ public class Battle {
         this.battleMessage= this.creature.getName()+" attacked you "+" for "+hitTaken;
     }
 
+    private void battleBuffSkillChecker(CharacterSkill skill){
+
+        switch (skill.getCharacterSkillName()){
+        case "Healing Touch":
+            int heal = Math.round(skill.getCharacterSkillModifier() * this.player.getPlayerCharacter().getMagicAttack());
+            if( (this.player.getPlayerCharacter().getCurrentHp()+heal) >= this.player.getPlayerCharacter().getMaxHp()){
+                this.player.getPlayerCharacter().setCurrentHp(this.player.getPlayerCharacter().getMaxHp());
+            } else if( (this.player.getPlayerCharacter().getCurrentHp()+heal) < this.player.getPlayerCharacter().getMaxHp()){
+            this.player.getPlayerCharacter().increaseCurrentHp(heal);
+            }
+            this.player.getPlayerCharacter().reduceCurrentInnerPower(skill.getInnerPowerConsume());
+            battleMessage ="You healed for " + heal +" with "+skill.getCharacterSkillName();
+
+            break;
+            case "Another Skill":
+                break;
+        }
+
+    }
+
+    private int randomWithRange(int min, int max)
+    {
+        int range = (max - min) + 1;
+        return (int)(Math.random() * range) + min;
+    }
 }

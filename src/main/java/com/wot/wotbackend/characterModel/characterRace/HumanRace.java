@@ -6,18 +6,16 @@ public class HumanRace extends CharacterRace {
 
     private HumanRace(){
         this.setRaceName("Human");
-        this.setHp(45);
-        this.setAttack(40);
-        this.setDefence(37);
+        this.setHp(85);
+        this.setAttack(25);
+        this.setDefence(30);
         this.setMagicAttack(25);
-        this.setMagicDefence(32);
+        this.setMagicDefence(30);
         this.setSpeed(30);
-        this.setInnerPower(100);
-
+        this.setInnerPower(50);
     }
 
     public static HumanRace getInstance(){
-
         return humanRace;
     }
 }

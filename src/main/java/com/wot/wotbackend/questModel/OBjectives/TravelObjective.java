@@ -24,7 +24,7 @@ public class TravelObjective extends Objective implements IObjective {
     public TravelObjective(int maxTasks){
         this.setMaxTasks(maxTasks);
         this.setObjectiveTypeEnum(ObjectiveType.TRAVELOBJECTIVE);
-        this.setDescription("Walk "+this.getMaxTasks()/100+"Km. ");
+        this.setDescription("Walk "+this.getMaxTasks()/1000+"Km. ");
     }
 
     @Override
