@@ -16,7 +16,7 @@ public class ArcaneBolt extends CharacterSkill {
         this.setSkillMaxLevel(5);
         this.setInnerPowerConsume(10);
         this.setSkillRank("C");
-        this.setSkillDescription("Throw an arcane bolt causing " +this.getCharacterSkillModifier()*100+"% magic damage to the target. Consumes "+this.getInnerPowerConsume()+"% of inner power to use.");
+        this.setSkillDescription("Throw an arcane bolt causing " +this.getCharacterSkillModifier()*100+"% magic damage to the target. Consumes "+this.getInnerPowerConsume()+"% of inner power.");
 
     }
 

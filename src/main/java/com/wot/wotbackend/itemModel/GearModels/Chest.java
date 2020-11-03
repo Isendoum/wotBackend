@@ -2,6 +2,7 @@ package com.wot.wotbackend.itemModel.GearModels;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class Chest extends Item {
     public Chest createRandomChest(int level){
         Chest chest= new Chest();
         if(level==1){
-            chest.setItemType("Chest");
+            chest.setItemType(ItemType.CHEST);
             int randLvlReq = chest.randomWithRange(level,level+1);
             chest.setLevelRequired(randLvlReq);
             chest.setAttackModifier(chest.randomWithRange(randLvlReq,randLvlReq+25));
@@ -41,7 +42,7 @@ public class Chest extends Item {
                 chest.setGoldValue(chestAverageStat*level);
             }
         } else{
-            chest.setItemType("Chest");
+            chest.setItemType(ItemType.CHEST);
             int randLvlReq = chest.randomWithRange(level-1,level+1);
             chest.setLevelRequired(randLvlReq);
             chest.setAttackModifier(chest.randomWithRange(randLvlReq,randLvlReq+25));

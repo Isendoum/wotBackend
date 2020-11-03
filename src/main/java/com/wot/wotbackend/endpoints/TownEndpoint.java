@@ -1,38 +1,17 @@
 package com.wot.wotbackend.endpoints;
 
 
-import com.wot.wotbackend.Security.jwt.JwtUtils;
-import com.wot.wotbackend.Security.services.PlayerDetailsImpl;
-import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
-import com.wot.wotbackend.documents.ERole;
 import com.wot.wotbackend.documents.Player;
-import com.wot.wotbackend.documents.Role;
-import com.wot.wotbackend.helperClasses.payloads.securityPayloads.JwtResponse;
-import com.wot.wotbackend.helperClasses.payloads.securityPayloads.LoginRequest;
-import com.wot.wotbackend.helperClasses.payloads.securityPayloads.MessageResponse;
-import com.wot.wotbackend.helperClasses.payloads.securityPayloads.SignupRequest;
 import com.wot.wotbackend.helperClasses.payloads.shopPayloads.WrapperShopBuyObj;
 import com.wot.wotbackend.helperClasses.payloads.shopPayloads.WrapperShopSellObj;
-import com.wot.wotbackend.itemModel.Item;
 import com.wot.wotbackend.questModel.Quest;
 import com.wot.wotbackend.repositories.PlayerRepository;
-import com.wot.wotbackend.repositories.RoleRepository;
-import com.wot.wotbackend.worldStructures.portal.Shop;
-import com.wot.wotbackend.worldStructures.portal.TownShop;
+import com.wot.wotbackend.worldStructures.town.TownShop;
+import com.wot.wotbackend.worldStructures.town.TownSkillShop;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 @RestController
@@ -54,6 +33,13 @@ public class TownEndpoint {
 
         return TownShop.getInstance();
 
+    }
+
+    @GetMapping("/askTownSkillShop")
+    @ResponseBody
+    public TownSkillShop getTownSkillShop(){
+
+        return TownSkillShop.getInstance();
     }
 
     @PostMapping(value="/townShop/buy",consumes = "application/json")
@@ -78,6 +64,39 @@ public class TownEndpoint {
 
         Player player= playerRepository.findById(wrapperShopBuyObj.getPlayer().getId()).get();
         return player;
+
+
+    }
+
+    @PostMapping(value="/townSkillShop/buySkill/{playerId}/{skillName}")
+    @ResponseBody
+    public Player buySkillFromTownSkillShop(@PathVariable("playerId")String playerId,@PathVariable("skillName")String skillName){
+        AtomicBoolean isSkillBought= new AtomicBoolean(false);
+        playerRepository.findById(playerId).ifPresent(player -> {
+
+            if(player.getPlayerCharacter().getCharSkillByName(skillName)!=null){
+
+            }else {
+                for (int i = 0; i < TownSkillShop.getInstance().getSkills().size(); i++) {
+                    if(TownSkillShop.getInstance().getSkills().get(i).getCharacterSkillName().equals(skillName) && TownSkillShop.getInstance().getSkills().get(i).getCrystalCost()<=player.getPlayerCharacter().getSkillPoints()){
+                        player.getPlayerCharacter().getCharacterSkills().add(TownSkillShop.getInstance().getSkills().get(i));
+                        int skillPointsTemp=0;
+                        skillPointsTemp=player.getPlayerCharacter().getSkillPoints();
+                        player.getPlayerCharacter().setSkillPoints(skillPointsTemp-TownSkillShop.getInstance().getSkills().get(i).getCrystalCost());
+                        playerRepository.save(player);
+                        isSkillBought.set(true);
+                    }
+                }
+
+            }
+        });
+
+        if(isSkillBought.get()){
+            return playerRepository.findById(playerId).get();
+            }
+        else {
+            return null;
+        }
 
 
     }
@@ -121,8 +140,6 @@ public class TownEndpoint {
             return null;
         }
     }
-
-
 
     private int randomWithRange(int min, int max)
     {

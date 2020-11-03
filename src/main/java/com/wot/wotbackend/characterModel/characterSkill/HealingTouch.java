@@ -12,13 +12,14 @@ public class HealingTouch extends CharacterSkill {
 
     private HealingTouch(){
         this.setCharacterSkillName("Healing Touch");
-        this.setCharacterSkillModifier(0.1f);
+        this.setCharacterSkillModifier(0.15f);
+        this.setCrystalCost(1);
         this.setCharacterSkillType(SkillType.BATTLEBUFF);
         this.setSkillLevel(1);
         this.setSkillMaxLevel(5);
         this.setInnerPowerConsume(15);
         this.setSkillRank("C");
-        this.setSkillDescription("Heal for " +this.getCharacterSkillModifier()*100+"% of your magic damage. Consumes "+this.getInnerPowerConsume()+"% of inner power to use.");
+        this.setSkillDescription("Heal for " +this.getCharacterSkillModifier()*100+"% of your magic damage. Consumes "+this.getInnerPowerConsume()+"% of inner power.");
 
     }
 

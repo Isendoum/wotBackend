@@ -138,8 +138,9 @@ public class BattleEndpoint {
     @ResponseBody
     public Battle playerAttack(@PathVariable("id") String id, @RequestBody CharacterSkill skill){
         System.out.println("Player used"+skill.getCharacterSkillName());
-            if(battleRepository.findById(id).isPresent()) {
-                Optional<Battle> battle = battleRepository.findById(id);
+            Optional<Battle> battle = battleRepository.findById(id);
+            if(battle.isPresent()) {
+
 
                 battle.get().playerAttackMove(skill);
                 if(battle.get().getCreature().getHp()>0){

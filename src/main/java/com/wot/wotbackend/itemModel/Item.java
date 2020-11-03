@@ -22,7 +22,7 @@ public class Item   {
     private String id= UUID.randomUUID().toString();
     private String itemName;
     private ItemAbility itemAbility;
-    private String itemType;
+    private ItemType itemType;
     private int quantity;
     private int levelRequired;
     private int defenceModifier;

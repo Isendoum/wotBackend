@@ -7,6 +7,7 @@ import com.wot.wotbackend.characterModel.characterRace.CharacterRace;
 import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
 import com.wot.wotbackend.itemModel.Gear;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import com.wot.wotbackend.questModel.Quest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,8 +34,7 @@ public abstract class CharacterModel {
     private long expRequired;
     private int maxInnerPower;
     private int currentInnerPower;
-    private int talentPoints;
-    private int levelPoints;
+    private int skillPoints;
     private Gear gear;
     private String resourceName="Inner Power";
     private List<CharacterSkill> characterSkills;
@@ -284,9 +284,16 @@ public abstract class CharacterModel {
     }
 
     public CharacterSkill getCharSkillByName(String skillName){
-        if(skillName.equals(characterSkills.listIterator().next().getCharacterSkillName())){
-            return characterSkills.listIterator().next();
-        }else return null;
+
+        for (CharacterSkill characterSkill : characterSkills) {
+            System.out.println(characterSkill.getCharacterSkillName());
+            if (characterSkill.getCharacterSkillName().equals(skillName)) {
+                System.out.println("Skill already acquired");
+                return characterSkill;
+            }
+        }
+        return null;
+
 
     }
 
@@ -308,22 +315,22 @@ public abstract class CharacterModel {
     public void addItemToInventory(Item itemToAdd) {
         System.out.println("Item inside add" + itemToAdd);
         switch (itemToAdd.getItemType()) {
-            case "Weapon":
-            case "Gloves":
-            case "Boots":
-            case "Amulet":
-            case "Ring":
-            case "Shoulders":
-            case "Pants":
-            case "Chest":
-            case "Helmet":
-            case "Off-Hand":
+            case WEAPON:
+            case GLOVES:
+            case BOOTS:
+            case AMULET:
+            case RING:
+            case SHOULDERS:
+            case PANTS:
+            case CHEST:
+            case HELMET:
+            case OFFHAND:
                 if (this.inventory.size() < 20) {
 
                     this.inventory.add(itemToAdd);
                 }
                 break;
-            case "Consumable":
+            case CONSUMABLE:
 
                 boolean itemFound = false;
                 if (this.inventory.size() == 0) {
@@ -365,7 +372,7 @@ public abstract class CharacterModel {
 
             if(this.getInventory().get(i).getId().equals(id)){
 
-                if(this.getInventory().get(i).getItemType().equals("Consumable")){
+                if(this.getInventory().get(i).getItemType().equals(ItemType.CONSUMABLE)){
                     if(this.getInventory().get(i).getItemName().equals("Potion")){
 
                         int hpToHeal=Math.round(this.getMaxHp()*(this.getInventory().get(i).getItemAbility().getAbilityModifier()/100));
@@ -414,7 +421,7 @@ public abstract class CharacterModel {
                         }
                     }
                 }
-                else if(this.getInventory().get(i).getItemType().equals("Weapon")){
+                else if(this.getInventory().get(i).getItemType().equals(ItemType.WEAPON)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -433,7 +440,7 @@ public abstract class CharacterModel {
                     }else{
                         System.out.println("too low level");
                     }
-                }else if(this.getInventory().get(i).getItemType().equals("Boots")){
+                }else if(this.getInventory().get(i).getItemType().equals(ItemType.BOOTS)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -452,7 +459,7 @@ public abstract class CharacterModel {
                     }else{
                         System.out.println("too low level");
                     }
-                }else if(this.getInventory().get(i).getItemType().equals("Pants")){
+                }else if(this.getInventory().get(i).getItemType().equals(ItemType.PANTS)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -471,7 +478,7 @@ public abstract class CharacterModel {
                     }else{
                         System.out.println("too low level");
                     }
-                }else if(this.getInventory().get(i).getItemType().equals("Chest")){
+                }else if(this.getInventory().get(i).getItemType().equals(ItemType.CHEST)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -491,7 +498,7 @@ public abstract class CharacterModel {
                         System.out.println("too low level");
                     }
                 }
-                else if(this.getInventory().get(i).getItemType().equals("Shoulders")){
+                else if(this.getInventory().get(i).getItemType().equals(ItemType.SHOULDERS)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -511,7 +518,7 @@ public abstract class CharacterModel {
                         System.out.println("too low level");
                     }
                 }
-                else if(this.getInventory().get(i).getItemType().equals("Gloves")){
+                else if(this.getInventory().get(i).getItemType().equals(ItemType.GLOVES)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -530,7 +537,7 @@ public abstract class CharacterModel {
                     }else{
                         System.out.println("too low level");
                     }
-                }else if(this.getInventory().get(i).getItemType().equals("Helmet")){
+                }else if(this.getInventory().get(i).getItemType().equals(ItemType.HELMET)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -550,7 +557,7 @@ public abstract class CharacterModel {
                         System.out.println("too low level");
                     }
                 }
-                else if(this.getInventory().get(i).getItemType().equals("Amulet")){
+                else if(this.getInventory().get(i).getItemType().equals(ItemType.AMULET)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -570,7 +577,7 @@ public abstract class CharacterModel {
                         System.out.println("too low level");
                     }
                 }
-                else if(this.getInventory().get(i).getItemType().equals("Ring")){
+                else if(this.getInventory().get(i).getItemType().equals(ItemType.RING)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 
@@ -603,7 +610,7 @@ public abstract class CharacterModel {
                     }else{
                         System.out.println("too low level");
                     }
-                }else if(this.getInventory().get(i).getItemType().equals("Off-Hand")){
+                }else if(this.getInventory().get(i).getItemType().equals(ItemType.OFFHAND)){
 
                     if(this.getInventory().get(i).getLevelRequired()<= this.getLevel()){
 

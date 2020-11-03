@@ -14,7 +14,8 @@ public enum ItemType {
     BOOTS,
     RING,
     AMULET,
-    CONSUMABLE;
+    CONSUMABLE,
+    POWERCRYSTAL;
 
     public static ItemType getRandomItemType() {
         Random random = new Random();

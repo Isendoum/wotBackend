@@ -2,6 +2,7 @@ package com.wot.wotbackend.itemModel.GearModels;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class Amulet extends Item {
     public Amulet createRandomAmulet(int level){
         Amulet amulet= new Amulet();
         if(level==1){
-            amulet.setItemType("Amulet");
+            amulet.setItemType(ItemType.AMULET);
             int randLvlReq = amulet.randomWithRange(level,level+1);
             amulet.setLevelRequired(randLvlReq);
             amulet.setAttackModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));
@@ -40,7 +41,7 @@ public class Amulet extends Item {
                 amulet.setGoldValue(amuletAverageStat*level);
             }
         } else{
-            amulet.setItemType("Amulet");
+            amulet.setItemType(ItemType.AMULET);
             int randLvlReq = amulet.randomWithRange(level-1,level+1);
             amulet.setLevelRequired(randLvlReq);
             amulet.setAttackModifier(amulet.randomWithRange(randLvlReq,randLvlReq+25));

@@ -18,7 +18,7 @@ public class WildSwing extends CharacterSkill {
         this.setSkillMaxLevel(5);
         this.setInnerPowerConsume(10);
         this.setSkillRank("C");
-        this.setSkillDescription("Swing you weapon wildly, causing " +this.getCharacterSkillModifier()*100+"% melee damage to the target. Consumes "+this.getInnerPowerConsume()+"% of inner power to use.");
+        this.setSkillDescription("Swing you weapon wildly, causing " +this.getCharacterSkillModifier()*100+"% melee damage to the target. Consumes "+this.getInnerPowerConsume()+"% of inner power.");
 
     }
 

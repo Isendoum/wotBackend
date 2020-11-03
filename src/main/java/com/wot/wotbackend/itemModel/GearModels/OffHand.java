@@ -2,6 +2,7 @@ package com.wot.wotbackend.itemModel.GearModels;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class OffHand extends Item {
     public OffHand createRandomOffHand(int level){
         OffHand offHand= new OffHand();
         if(level==1){
-            offHand.setItemType("Off-hand");
+            offHand.setItemType(ItemType.OFFHAND);
             int randLvlReq = offHand.randomWithRange(level,level+1);
             offHand.setLevelRequired(randLvlReq);
             offHand.setAttackModifier(offHand.randomWithRange(randLvlReq,randLvlReq+25));
@@ -41,7 +42,7 @@ public class OffHand extends Item {
                 offHand.setGoldValue(offHandAverageStat*level);
             }
         } else{
-            offHand.setItemType("Off-Hand");
+            offHand.setItemType(ItemType.OFFHAND);
             int randLvlReq = offHand.randomWithRange(level-1,level+1);
             offHand.setLevelRequired(randLvlReq);
             offHand.setAttackModifier(offHand.randomWithRange(randLvlReq,randLvlReq+25));

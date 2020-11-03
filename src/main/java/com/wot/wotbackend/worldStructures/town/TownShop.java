@@ -1,10 +1,11 @@
-package com.wot.wotbackend.worldStructures.portal;
+package com.wot.wotbackend.worldStructures.town;
 
 import com.wot.wotbackend.characterModel.characterSkill.ArcaneBolt;
 import com.wot.wotbackend.itemModel.ConsumableModel.IpPotion;
 import com.wot.wotbackend.itemModel.ConsumableModel.Potion;
 import com.wot.wotbackend.itemModel.Item;
 import com.wot.wotbackend.itemModel.Weapons.SolomansResolve;
+import com.wot.wotbackend.worldStructures.portal.Shop;
 import lombok.Data;
 
 import java.util.List;

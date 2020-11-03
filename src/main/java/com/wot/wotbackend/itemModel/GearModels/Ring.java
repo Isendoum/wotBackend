@@ -4,6 +4,7 @@ package com.wot.wotbackend.itemModel.GearModels;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.itemModel.Item;
 
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class Ring extends Item {
     public Ring createRandomRing(int level){
         Ring ring= new Ring();
         if(level==1){
-            ring.setItemType("Ring");
+            ring.setItemType(ItemType.RING);
             int randLvlReq = ring.randomWithRange(level,level+1);
             ring.setLevelRequired(randLvlReq);
             ring.setAttackModifier(ring.randomWithRange(randLvlReq,randLvlReq+25));
@@ -45,7 +46,7 @@ public class Ring extends Item {
                 ring.setGoldValue(ringAverageStat*level);
             }
         } else{
-            ring.setItemType("Ring");
+            ring.setItemType(ItemType.RING);
             int randLvlReq = ring.randomWithRange(level-1,level+1);
             ring.setLevelRequired(randLvlReq);
             ring.setAttackModifier(ring.randomWithRange(randLvlReq,randLvlReq+25));

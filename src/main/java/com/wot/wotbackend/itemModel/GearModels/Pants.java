@@ -4,6 +4,7 @@ package com.wot.wotbackend.itemModel.GearModels;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.itemModel.Item;
 
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class Pants extends Item {
     public Pants createRandomPants(int level){
         Pants pants= new Pants();
         if(level==1){
-            pants.setItemType("Pants");
+            pants.setItemType(ItemType.PANTS);
             int randLvlReq =  pants.randomWithRange(level,level+1);
             pants.setLevelRequired(randLvlReq);
             pants.setAttackModifier(pants.randomWithRange(randLvlReq,randLvlReq+25));
@@ -44,7 +45,7 @@ public class Pants extends Item {
                 pants.setGoldValue(pantsAverageStat*level);
             }
         } else{
-            pants.setItemType("Pants");
+            pants.setItemType(ItemType.PANTS);
             int randLvlReq = pants.randomWithRange(level-1,level+1);
             pants.setLevelRequired(randLvlReq);
             pants.setAttackModifier(pants.randomWithRange(randLvlReq,randLvlReq+25));

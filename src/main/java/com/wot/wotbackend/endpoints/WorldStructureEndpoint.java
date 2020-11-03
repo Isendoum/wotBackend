@@ -57,7 +57,7 @@ public class WorldStructureEndpoint {
                 nearbyWorldStructures.add(worldStructure);
             }
         });
-
+        System.out.println(nearbyWorldStructures.size());
 
         return nearbyWorldStructures;
     }

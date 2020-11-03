@@ -3,6 +3,7 @@ package com.wot.wotbackend.endpoints;
 
 import com.wot.wotbackend.Security.jwt.JwtUtils;
 import com.wot.wotbackend.Security.services.PlayerDetailsImpl;
+import com.wot.wotbackend.characterModel.characterSkill.BurstOfPower;
 import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
 import com.wot.wotbackend.characterModel.characterSkill.HealingTouch;
 import com.wot.wotbackend.documents.ERole;
@@ -15,6 +16,7 @@ import com.wot.wotbackend.helperClasses.payloads.securityPayloads.MessageRespons
 import com.wot.wotbackend.helperClasses.payloads.securityPayloads.SignupRequest;
 import com.wot.wotbackend.itemModel.ConsumableModel.Potion;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import com.wot.wotbackend.questModel.Quest;
 import com.wot.wotbackend.repositories.PlayerRepository;
 import com.wot.wotbackend.repositories.RoleRepository;
@@ -29,6 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -75,7 +78,7 @@ public class PlayerEndpoint {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
         playerRepository.findByUsername(loginRequest.getUsername()).ifPresent(player -> {player.setLatitude(loginRequest.getLatitude());player.setLongitude(loginRequest.getLongitude());
-
+        player.setLastDate(new Date());
         playerRepository.save(player);
         });
 
@@ -214,7 +217,7 @@ public class PlayerEndpoint {
     @PostMapping("/{pathVariable}/updateLastLocation")
     @ResponseBody
     public Player updateLastPlayerCoords(@PathVariable("pathVariable") String pathVariable,@RequestParam String latitude,@RequestParam String longitude) {
-        System.out.println(latitude+" "+longitude);
+
         if(playerRepository.findById(pathVariable).isPresent()){
             Player player= playerRepository.findById(pathVariable).get();
             player.setLatitude(Double.parseDouble(latitude));
@@ -224,8 +227,8 @@ public class PlayerEndpoint {
                 objective.checkObjectives(20);
                     }
                     );
-            player.getPlayerCharacter().increaseCurrentHp(Math.round(player.getPlayerCharacter().getMaxHp()*(0.01)));
-            player.getPlayerCharacter().increaseCurrentInnerPower(Math.round(player.getPlayerCharacter().getMaxInnerPower()*(0.01)));
+            player.getPlayerCharacter().increaseCurrentHp(Math.round(player.getPlayerCharacter().getMaxHp()*(0.02)));
+            player.getPlayerCharacter().increaseCurrentInnerPower(Math.round(player.getPlayerCharacter().getMaxInnerPower()*(0.02)));
            playerRepository.save(player);
             System.out.println("player location saved");
             return player;
@@ -267,8 +270,13 @@ public class PlayerEndpoint {
     public void  addItemToInventory(@PathVariable("pathVariable") String pathVariable,@RequestBody Item item) {
         //System.out.println("Player asked to use an item with name "+item.getItemName());
         playerRepository.findById(pathVariable).ifPresent(player -> {
-            //System.out.println("Player "+player.getName()+item.getItemName());
-            player.getPlayerCharacter().addItemToInventory(item);
+            if(item.getItemType().equals(ItemType.POWERCRYSTAL)){
+                int currentSkillPoints = player.getPlayerCharacter().getSkillPoints();
+                player.getPlayerCharacter().setSkillPoints(currentSkillPoints+1);
+            }else{
+                player.getPlayerCharacter().addItemToInventory(item);
+            }
+
             playerRepository.save(player);
         });
 

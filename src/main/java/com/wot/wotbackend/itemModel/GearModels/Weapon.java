@@ -2,6 +2,7 @@ package com.wot.wotbackend.itemModel.GearModels;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class Weapon extends Item {
     public Weapon createRandomWeapon(int level){
         Weapon weapon= new Weapon();
         if(level==1){
-            weapon.setItemType("Weapon");
+            weapon.setItemType(ItemType.WEAPON);
             int randLvlReq = weapon.randomWithRange(level,level+1);
             weapon.setLevelRequired(randLvlReq);
             weapon.setAttackModifier(weapon.randomWithRange(randLvlReq,randLvlReq+25));
@@ -41,7 +42,7 @@ public class Weapon extends Item {
                 weapon.setGoldValue(weaponAverageStat*level);
             }
         } else{
-            weapon.setItemType("Weapon");
+            weapon.setItemType(ItemType.WEAPON);
             int randLvlReq = weapon.randomWithRange(level-1,level+1);
             weapon.setLevelRequired(randLvlReq);
             weapon.setAttackModifier(weapon.randomWithRange(randLvlReq,randLvlReq+25));

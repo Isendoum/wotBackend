@@ -18,6 +18,8 @@ public class CharacterSkill {
     private  int skillMaxLevel;
     private int innerPowerConsume;
     private String skillRank;
+    private int buffedTurnsRemaining;
+    private int crystalCost;
 
 
 
@@ -28,9 +30,6 @@ public class CharacterSkill {
         return characterSkillName+" Power: "+characterSkillModifier+" Type: "+characterSkillType;
     }
 
-    public Battle returnBattleWithBuffs(Battle battle){
 
-        return battle;
-    }
 
 }

@@ -3,6 +3,7 @@ package com.wot.wotbackend.itemModel.GearModels;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class Shoulders extends Item {
     public Shoulders createRandomShoulders(int level){
         Shoulders shoulders= new Shoulders();
         if(level==1){
-            shoulders.setItemType("Shoulders");
+            shoulders.setItemType(ItemType.SHOULDERS);
             int randLvlReq = shoulders.randomWithRange(level,level+1);
             shoulders.setLevelRequired(randLvlReq);
             shoulders.setAttackModifier(shoulders.randomWithRange(randLvlReq,randLvlReq+25));
@@ -42,7 +43,7 @@ public class Shoulders extends Item {
                 shoulders.setGoldValue(shouldersAverageStat*level);
             }
         } else{
-            shoulders.setItemType("Shoulders");
+            shoulders.setItemType(ItemType.SHOULDERS);
             int randLvlReq = shoulders.randomWithRange(level-1,level+1);
             shoulders.setLevelRequired(randLvlReq);
             shoulders.setAttackModifier(shoulders.randomWithRange(randLvlReq,randLvlReq+25));

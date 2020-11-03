@@ -12,7 +12,7 @@ public class Undead extends CreatureType {
 
     private Undead(){
         this.setExp(110);
-        this.setHpModifier(35);
+        this.setHpModifier(30);
         this.setTypeName("Undead");
         this.setMeleeModifier(10);
         this.setMagicModifier(10);

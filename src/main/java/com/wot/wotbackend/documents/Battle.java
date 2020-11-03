@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import com.wot.wotbackend.characterModel.characterSkill.BurstOfPower;
 import com.wot.wotbackend.characterModel.characterSkill.CharacterSkill;
 import com.wot.wotbackend.characterModel.characterSkill.SkillType;
 import com.wot.wotbackend.creatureModel.Creature;
@@ -26,12 +27,18 @@ public class Battle {
     private String id;
     private BattleType battleTypeEnum;
     private Player player;
+    private int playerAttackBuff;
+    private int playerMagicAttackBuff;
+    private int playerDefenceBuff;
+    private int playerMagicDefenceBuff;
     private Creature creature;
     private String currentTurn;
     private String battleMessage;
     private int turn;
-    @JsonIgnore
-    private static Timer timer;
+    private int buffedTurnsRemainingAttack;
+    private int buffedTurnsRemainingMagicAttack;
+    private int buffedTurnsRemainingDefence;
+    private int buffedTurnsRemainingMagicDefence;
 
 
 
@@ -61,12 +68,13 @@ public class Battle {
 
 
         }else {
+            this.checkRemainingBuffedTurnAndRemoveBuffs();
 
             switch (skillType) {
 
                 case ATTACK:
                 case ATTACKSKILL:
-                    int playerAttackWithSkillModifier = Math.round(this.player.getPlayerCharacter().getAttack() * skill.getCharacterSkillModifier());
+                    int playerAttackWithSkillModifier = Math.round((this.player.getPlayerCharacter().getAttack()+this.playerAttackBuff) * skill.getCharacterSkillModifier());
                     int hitDone = (int) (2 * Math.round(playerAttackWithSkillModifier / Math.log(this.creature.getDefence())));
                     if(Math.round(Math.log(this.player.getPlayerCharacter().getSpeed())) >= randomWithRange(1,10)){
                         hitDone=hitDone*2;
@@ -82,7 +90,7 @@ public class Battle {
                     break;
                 case MAGICATTACK:
                 case MAGICATTACKSKILL:
-                    int playerMagicAttackWithSkillModifier = Math.round(this.player.getPlayerCharacter().getMagicAttack() * skill.getCharacterSkillModifier());
+                    int playerMagicAttackWithSkillModifier = Math.round((this.player.getPlayerCharacter().getMagicAttack()+this.playerMagicAttackBuff) * skill.getCharacterSkillModifier());
                     int magicHitTaken = (int) (2 *Math.round(playerMagicAttackWithSkillModifier / Math.log(this.creature.getMagicDefence())));
                     if(Math.round(Math.log(this.player.getPlayerCharacter().getSpeed())) >= randomWithRange(1,10)){
                         magicHitTaken=magicHitTaken*2;
@@ -91,7 +99,7 @@ public class Battle {
                     }else {
                         this.battleMessage= "You attack with "+skill.getCharacterSkillName() +" for "+magicHitTaken+" damage";
                     }
-                    this.player.getPlayerCharacter().reduceCurrentInnerPower(skill.getInnerPowerConsume());
+                    this.player.getPlayerCharacter().reduceCurrentInnerPower(Math.round((((float) skill.getInnerPowerConsume()/100)*this.player.getPlayerCharacter().getMaxInnerPower())));
                     this.creature.setHp(this.creature.getHp() - magicHitTaken);
                     this.currentTurn = this.creature.getName();
                     this.turn++;
@@ -118,21 +126,61 @@ public class Battle {
     private void battleBuffSkillChecker(CharacterSkill skill){
 
         switch (skill.getCharacterSkillName()){
-        case "Healing Touch":
-            int heal = Math.round(skill.getCharacterSkillModifier() * this.player.getPlayerCharacter().getMagicAttack());
-            if( (this.player.getPlayerCharacter().getCurrentHp()+heal) >= this.player.getPlayerCharacter().getMaxHp()){
-                this.player.getPlayerCharacter().setCurrentHp(this.player.getPlayerCharacter().getMaxHp());
-            } else if( (this.player.getPlayerCharacter().getCurrentHp()+heal) < this.player.getPlayerCharacter().getMaxHp()){
-            this.player.getPlayerCharacter().increaseCurrentHp(heal);
-            }
-            this.player.getPlayerCharacter().reduceCurrentInnerPower(skill.getInnerPowerConsume());
-            battleMessage ="You healed for " + heal +" with "+skill.getCharacterSkillName();
 
+
+            case "Healing Touch":
+                int heal = Math.round(skill.getCharacterSkillModifier() * (this.player.getPlayerCharacter().getMagicAttack()+this.playerMagicAttackBuff));
+                if( (this.player.getPlayerCharacter().getCurrentHp()+heal) >= this.player.getPlayerCharacter().getMaxHp()){
+                    this.player.getPlayerCharacter().setCurrentHp(this.player.getPlayerCharacter().getMaxHp());
+                } else if( (this.player.getPlayerCharacter().getCurrentHp()+heal) < this.player.getPlayerCharacter().getMaxHp()){
+                    this.player.getPlayerCharacter().increaseCurrentHp(heal);
+                }
+            this.player.getPlayerCharacter().reduceCurrentInnerPower(Math.round((((float) skill.getInnerPowerConsume()/100)*this.player.getPlayerCharacter().getMaxInnerPower())));
+            battleMessage ="You healed for " + heal +" with "+skill.getCharacterSkillName();
             break;
-            case "Another Skill":
+
+            case "Burst of Power":
+                this.buffedTurnsRemainingAttack=skill.getBuffedTurnsRemaining();
+                this.buffedTurnsRemainingMagicAttack=skill.getBuffedTurnsRemaining();
+                this.playerAttackBuff=Math.round((this.player.getPlayerCharacter().getAttack()*skill.getCharacterSkillModifier())/2);
+                this.playerMagicAttackBuff=Math.round((this.player.getPlayerCharacter().getMagicAttack()*skill.getCharacterSkillModifier())/2);
+                this.player.getPlayerCharacter().reduceCurrentInnerPower(Math.round((((float) skill.getInnerPowerConsume()/100)*this.player.getPlayerCharacter().getMaxInnerPower())));
+                battleMessage ="You doubled your attack and magic attack with " +skill.getCharacterSkillName();
+                break;
+
+            case "Burst of Will":
+                this.buffedTurnsRemainingDefence=skill.getBuffedTurnsRemaining();
+                this.buffedTurnsRemainingMagicDefence=skill.getBuffedTurnsRemaining();
+                this.playerDefenceBuff=Math.round((this.player.getPlayerCharacter().getAttack()*skill.getCharacterSkillModifier())/2);
+                this.playerMagicDefenceBuff=Math.round((this.player.getPlayerCharacter().getMagicAttack()*skill.getCharacterSkillModifier())/2);
+                this.player.getPlayerCharacter().reduceCurrentInnerPower(Math.round((((float) skill.getInnerPowerConsume()/100)*this.player.getPlayerCharacter().getMaxInnerPower())));
+                battleMessage ="You doubled your defence and magic defence with " +skill.getCharacterSkillName();
                 break;
         }
 
+    }
+
+    private void checkRemainingBuffedTurnAndRemoveBuffs(){
+        if(this.buffedTurnsRemainingAttack>0){
+            this.buffedTurnsRemainingAttack--;
+        } else{
+            this.playerAttackBuff=0;
+        }
+        if(this.buffedTurnsRemainingMagicAttack>0){
+            this.buffedTurnsRemainingAttack--;
+        } else{
+            this.playerMagicAttackBuff=0;
+        }
+        if(this.buffedTurnsRemainingDefence>0){
+            this.buffedTurnsRemainingDefence--;
+        } else{
+            this.playerDefenceBuff=0;
+        }
+        if(this.buffedTurnsRemainingMagicDefence>0){
+            this.buffedTurnsRemainingMagicDefence--;
+        } else{
+            this.playerMagicDefenceBuff=0;
+        }
     }
 
     private int randomWithRange(int min, int max)

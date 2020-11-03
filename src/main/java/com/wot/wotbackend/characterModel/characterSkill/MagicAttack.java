@@ -16,7 +16,7 @@ public class MagicAttack extends CharacterSkill {
         this.setSkillMaxLevel(1);
         this.setInnerPowerConsume(0);
         this.setSkillRank("D");
-        this.setSkillDescription("Basic magic attack. Does " +this.getCharacterSkillModifier()*100+"% magic damage to the target. Consumes "+this.getInnerPowerConsume()+"% of inner power to use.");
+        this.setSkillDescription("Basic magic attack. Does " +this.getCharacterSkillModifier()*100+"% magic damage to the target. Consumes "+this.getInnerPowerConsume()+"% of inner power.");
 
     }
 

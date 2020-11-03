@@ -3,6 +3,7 @@ package com.wot.wotbackend.itemModel.Weapons;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.Data;
 
 @Data
@@ -20,7 +21,7 @@ public class SolomansResolve extends Item {
         this.setMagicAttackModifier(120);
         this.setMagicDefenceModifier(60);
         this.setDefenceModifier(50);
-        this.setItemType("Weapon");
+        this.setItemType(ItemType.WEAPON);
         this.setItemName("Soloman's Resolve");
     }
 

@@ -3,8 +3,11 @@ package com.wot.wotbackend.valorTower;
 import com.wot.wotbackend.creatureModel.Creature;
 import com.wot.wotbackend.creatureModel.creatureClan.Lemesur;
 import com.wot.wotbackend.creatureModel.types.Undead;
+import com.wot.wotbackend.itemModel.ConsumableModel.IpPotion;
+import com.wot.wotbackend.itemModel.ConsumableModel.Potion;
 import com.wot.wotbackend.itemModel.GearModels.Weapon;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.Items.PowerCrystal;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -31,10 +34,15 @@ public class ValorTower {
             if(i % 5==0){
                 Creature creature = new Creature("Tower Warden", Undead.getInstance(),Lemesur.getInstance(),true,i);
                 creature.getItems().add(Item.createRandomItem(i));
+                creature.getItems().add(new PowerCrystal());
+                creature.getItems().add(new IpPotion());
+                creature.getItems().add(new Potion());
                 this.floorList.add(creature);
             } else{
                 Creature creature = new Creature("Tower Guard", Undead.getInstance(),Lemesur.getInstance(),true,i);
                 creature.getItems().add(Item.createRandomItem(i));
+                creature.getItems().add(new IpPotion());
+                creature.getItems().add(new Potion());
                 this.floorList.add(creature);
             }
         }

@@ -2,6 +2,7 @@ package com.wot.wotbackend.itemModel.GearModels;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.wot.wotbackend.itemModel.Item;
+import com.wot.wotbackend.itemModel.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class Helmet extends Item {
         Helmet helmet= new Helmet();
         if(level==1){
 
-            helmet.setItemType("Helmet");
+            helmet.setItemType(ItemType.HELMET);
             int randLvlReq = helmet.randomWithRange(level,level+1);
             helmet.setLevelRequired(randLvlReq);
             helmet.setAttackModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
@@ -45,7 +46,7 @@ public class Helmet extends Item {
             }
         } else{
 
-            helmet.setItemType("Helmet");
+            helmet.setItemType(ItemType.HELMET);
             int randLvlReq = helmet.randomWithRange(level-1,level+1);
             helmet.setLevelRequired(randLvlReq);
             helmet.setAttackModifier(helmet.randomWithRange(randLvlReq,randLvlReq+25));
