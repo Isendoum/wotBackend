@@ -19,6 +19,8 @@ com.wot.backend.jwtSecret= *YOUR SECRET KEY FOR JWT AUTHENTICATION*
 com.wot.backend.jwtExpirationMs= 86400000
 
 # Project usage:
-Server has been deployed to heroku.
-Android apk link to test: https://drive.google.com/file/d/160kyjyVc7IqiXuYNLp9TFGGXDaR9tqAF/view?usp=sharing 
+Server has been deployed using heroku services.
+
+Android apk link to test: https://drive.google.com/file/d/160kyjyVc7IqiXuYNLp9TFGGXDaR9tqAF/view?usp=sharing
+
 This project is open for anyone to use.
