@@ -1,7 +1,20 @@
 # wotBackend
 
 This repository includes an implementation of a backend game server and login server. The game server is similar to pokemon go mobile game(Rpg twist).
-The repository also includes basic game logic such as: item generation, quest generation, creature generation, skill generation, level progression system, turn based battle system. 
+The repository also includes basic game logic such as:
+
+-Item generation
+
+-Quest generation
+
+-Creature generation
+
+-Skill generation
+
+-Level progression system
+
+-Turn based battle system.
+
 All communications are going through a rest api created with Spring MVC and using Mongo DB as a database. The repository does not include application.properties.
 
 # Example application.properties file:
