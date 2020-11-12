@@ -21,6 +21,9 @@ public class Objective {
 
 
     public void increaseTasksDone(){
-        this.tasksDone++;
+        if(this.tasksDone != this.maxTasks){
+            this.tasksDone++;
+        }
+
     }
 }

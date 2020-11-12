@@ -166,8 +166,9 @@ public class Battle {
         } else{
             this.playerAttackBuff=0;
         }
+        System.out.println("checking m attack");
         if(this.buffedTurnsRemainingMagicAttack>0){
-            this.buffedTurnsRemainingAttack--;
+            this.buffedTurnsRemainingMagicAttack--;
         } else{
             this.playerMagicAttackBuff=0;
         }

@@ -53,7 +53,10 @@ public class TravelObjective extends Objective implements IObjective {
     }
 
     public void increaseDoneTasksAsMeters(int meters){
-        this.setTasksDone(this.getTasksDone()+meters);
+        if(this.getTasksDone() < this.getMaxTasks()){
+            this.setTasksDone(this.getTasksDone()+meters);
+        }
+
     }
 
 }

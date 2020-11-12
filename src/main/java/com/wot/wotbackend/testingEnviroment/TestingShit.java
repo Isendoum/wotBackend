@@ -16,13 +16,13 @@ public class TestingShit {
 
         }*/
 
-        for (int i = 0; i < 10; i++) {
-            if(Math.round(Math.log(30)) >= randomWithRange(1,10)){
-                System.out.println("crit");
-            } else{
-                System.out.println("normal dmg");
-            }
-        }
+        Gridnode gridnode= new Gridnode(1);
+
+        gridnode.addNode(new Gridnode(2));
+        gridnode.addNode(new Gridnode(3));
+        gridnode.addNode(new Gridnode(4));
+        gridnode.addNode(new Gridnode(5));
+        gridnode.printAllNodes();
 
 
 

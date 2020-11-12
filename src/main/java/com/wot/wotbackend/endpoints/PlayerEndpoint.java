@@ -78,7 +78,11 @@ public class PlayerEndpoint {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
         playerRepository.findByUsername(loginRequest.getUsername()).ifPresent(player -> {player.setLatitude(loginRequest.getLatitude());player.setLongitude(loginRequest.getLongitude());
-        player.setLastDate(new Date());
+        Date date = new Date();
+        if(date.getDay()!=player.getLastDate().getDay()){
+            player.getCareer().increaseValorTowerAvailableResets();
+        }
+        player.setLastDate(date);
         playerRepository.save(player);
         });
 
@@ -182,6 +186,25 @@ public class PlayerEndpoint {
             return null;
         }
     }
+
+    @GetMapping("/{pathVariable}/resetValorTower")
+    @ResponseBody
+    public Player resetValorTower(@PathVariable("pathVariable") String pathVariable) {
+        System.out.println("Player asked for quest!");
+        if(playerRepository.findById(pathVariable).isPresent()){
+
+            Player player= playerRepository.findById(pathVariable).get();
+            if(player.getCareer().getValorTowerAvailableResets()>0){
+                player.getCareer().reduceValorTowerAvailableResets();
+                player.getCareer().setCurrentValorTowerFloor(1);
+            }
+            playerRepository.save(player);
+            return player;
+        }else{
+            return null;
+        }
+    }
+
 
     @GetMapping("/{pathVariable}/completeQuest/{questId}")
     @ResponseBody

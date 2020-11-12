@@ -18,7 +18,18 @@ public class Career {
     private int totalGoldSpent;
     private int totalDeaths;
     private int totalLootedItems;
+    private int valorTowerAvailableResets=1;
 
+    public void reduceValorTowerAvailableResets(){
+        if(this.valorTowerAvailableResets>0){
+            this.valorTowerAvailableResets--;
+        }
+    }
+
+    public void increaseValorTowerAvailableResets(){
+
+            this.valorTowerAvailableResets++;
+    }
 
     public void increaseDistanceTraveled(int distanceTraveled){
         this.distanceTraveled= this.distanceTraveled+distanceTraveled;
