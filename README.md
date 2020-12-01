@@ -65,6 +65,18 @@ It creates a new creature with based stats inherited from it's CreatureClan clas
 https://github.com/Isendoum/wotBackend/tree/master/src/main/java/com/wot/wotbackend/creatureModel/creatureClan
 https://github.com/Isendoum/wotBackend/tree/master/src/main/java/com/wot/wotbackend/creatureModel/types
 
+Items:
+All items are extending from Item class. From gear items(weapons, chests etc) to consumables items (potions). You can use the default Item constructor
+to create all sort of items.
+
+Quests:
+At the moment there 2 different kind of quests Kill objectives and Travel objectives. You can create them with 
+Quest newQuest = new Quest();
+newQuest.generateTravelQuest()
+or
+newQuest.generateKillQuest()
+
+
 # Project link:
 Server has been deployed using heroku services.
 
