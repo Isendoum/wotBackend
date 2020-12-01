@@ -3,11 +3,13 @@
 This repository includes an implementation of a backend game server and login server. The game server is similar to pokemon go mobile game(Rpg twist).
 The repository also includes basic game logic such as:
 
+-Character creation
+
 -Item generation
 
 -Quest generation
 
--Creature generation
+-Creature creation
 
 -Skill generation
 
